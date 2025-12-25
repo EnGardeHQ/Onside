@@ -102,7 +102,7 @@ migrations/
 .local/
 
 # Database configuration
-alembic.ini
+# alembic.ini - Needed for Docker builds, ensure no secrets are hardcoded
 *.env
 .env.*
 !.env.example
