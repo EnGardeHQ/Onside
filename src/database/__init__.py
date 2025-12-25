@@ -22,14 +22,16 @@ Base = declarative_base(metadata=MetaData(schema="onside"))
 # Get database URL from environment variable
 DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://postgres:onside-dev-password@localhost:5432/onside")
 
-# Ensure schema isolation by adding search_path if not already present
-if DATABASE_URL and "options=" not in DATABASE_URL:
-    # Add onside schema to search_path for proper schema isolation
-    separator = "&" if "?" in DATABASE_URL else "?"
-    DATABASE_URL = f"{DATABASE_URL}{separator}options=-c%20search_path=onside,public"
+# Create separate URLs for sync and async engines
+# Sync engine (psycopg2) - supports options parameter
+SYNC_DATABASE_URL = DATABASE_URL.replace("postgresql+asyncpg://", "postgresql://") if DATABASE_URL.startswith("postgresql+asyncpg://") else DATABASE_URL
+
+# Add search_path for sync engine (psycopg2 supports this)
+if SYNC_DATABASE_URL and "options=" not in SYNC_DATABASE_URL:
+    separator = "&" if "?" in SYNC_DATABASE_URL else "?"
+    SYNC_DATABASE_URL = f"{SYNC_DATABASE_URL}{separator}options=-c%20search_path=onside,public"
 
 # Create sync engine for synchronous operations
-SYNC_DATABASE_URL = DATABASE_URL.replace("postgresql+asyncpg://", "postgresql://") if DATABASE_URL.startswith("postgresql+asyncpg://") else DATABASE_URL
 sync_engine = create_engine(
     SYNC_DATABASE_URL,
     echo=os.getenv("SQL_ECHO", "false").lower() == "true",
@@ -43,16 +45,23 @@ SyncSessionLocal = sessionmaker(
     bind=sync_engine
 )
 
+# Async engine (asyncpg) - does NOT support options parameter
 # Convert postgresql:// to postgresql+asyncpg:// for async driver
 ASYNC_DATABASE_URL = DATABASE_URL
 if ASYNC_DATABASE_URL.startswith("postgresql://"):
     ASYNC_DATABASE_URL = ASYNC_DATABASE_URL.replace("postgresql://", "postgresql+asyncpg://", 1)
 
-# Create async engine with verified schema
+# For asyncpg, we use connect_args with server_settings instead of URL options
+# This sets the search_path at the connection level
 engine = create_async_engine(
     ASYNC_DATABASE_URL,
     echo=os.getenv("SQL_ECHO", "false").lower() == "true",
-    future=True
+    future=True,
+    connect_args={
+        "server_settings": {
+            "search_path": "onside,public"
+        }
+    }
 )
 
 # Create async session factory following BDD/TDD methodology with real database connections
