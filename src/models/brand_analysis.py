@@ -52,7 +52,7 @@ class BrandAnalysisJob(Base):
     __tablename__ = "brand_analysis_jobs"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    user_id = Column(String(36), ForeignKey("users.id"), nullable=False)
     questionnaire = Column(JSONB, nullable=False)
     status = Column(SQLEnum(AnalysisStatus), nullable=False, default=AnalysisStatus.INITIATED)
     progress = Column(Integer, nullable=False, default=0)  # 0-100

@@ -15,11 +15,18 @@ from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.ext.asyncio import async_sessionmaker
 from sqlalchemy.orm import declarative_base, Session, sessionmaker
 
-# Create SQLAlchemy base class
-Base = declarative_base()
+# Create SQLAlchemy base class with explicit schema for isolation
+from sqlalchemy import MetaData, text
+Base = declarative_base(metadata=MetaData(schema="onside"))
 
 # Get database URL from environment variable
 DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://postgres:onside-dev-password@localhost:5432/onside")
+
+# Ensure schema isolation by adding search_path if not already present
+if DATABASE_URL and "options=" not in DATABASE_URL:
+    # Add onside schema to search_path for proper schema isolation
+    separator = "&" if "?" in DATABASE_URL else "?"
+    DATABASE_URL = f"{DATABASE_URL}{separator}options=-c%20search_path=onside,public"
 
 # Create sync engine for synchronous operations
 SYNC_DATABASE_URL = DATABASE_URL.replace("postgresql+asyncpg://", "postgresql://") if DATABASE_URL.startswith("postgresql+asyncpg://") else DATABASE_URL
@@ -96,6 +103,8 @@ async def init_db():
     """
     # Use bind.run_sync for async engine
     async with engine.begin() as conn:
+        # Ensure schema exists before creating tables
+        await conn.execute(text("CREATE SCHEMA IF NOT EXISTS onside"))
         await conn.run_sync(Base.metadata.create_all)
 
 __all__ = ['Base', 'SessionLocal', 'SyncSessionLocal', 'engine', 'sync_engine', 'get_db', 'get_db_sync', 'get_db_async', 'init_db']

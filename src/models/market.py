@@ -5,7 +5,7 @@ from datetime import datetime
 from typing import Dict, List, Optional
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, JSON, Float, Table
 from sqlalchemy.orm import relationship
-from src.database.config import Base
+from src.database import Base
 
 # Association tables must be defined before the models that use them
 competitor_tags = Table(

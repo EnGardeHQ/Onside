@@ -24,7 +24,7 @@ class Content(Base):
     __tablename__ = "contents"
 
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
-    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
+    user_id: Mapped[str] = mapped_column(String(36), ForeignKey("users.id"), nullable=False)
     title: Mapped[str] = mapped_column(String, index=True)
     content_text: Mapped[str] = mapped_column(String)
     content_type: Mapped[str] = mapped_column(String, nullable=False)

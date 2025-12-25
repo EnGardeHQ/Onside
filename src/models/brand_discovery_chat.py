@@ -11,7 +11,7 @@ class BrandDiscoveryChatSession(Base):
     __tablename__ = "brand_discovery_chat_sessions"
 
     session_id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    user_id = Column(String(255), nullable=False, index=True)
+    user_id = Column(String(36), nullable=False, index=True)
     messages = Column(JSONB, nullable=False, default=list)  # [{role, content, timestamp}]
     extracted_data = Column(JSONB, nullable=False, default=dict)  # Structured questionnaire data
     status = Column(String(50), nullable=False, default='active', index=True)  # active, completed, abandoned

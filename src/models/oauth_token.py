@@ -13,7 +13,7 @@ class OAuthToken(Base):
     __tablename__ = 'oauth_tokens'
     
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey('users.id'), nullable=False, index=True)
+    user_id = Column(String(36), ForeignKey('users.id'), nullable=False, index=True)
     service = Column(String(50), nullable=False, index=True)  # e.g., 'google_analytics'
     
     # OAuth2 token data

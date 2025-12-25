@@ -52,7 +52,7 @@ class Report(Base):
     __tablename__ = "reports"
 
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
-    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
+    user_id: Mapped[str] = mapped_column(String(36), ForeignKey("users.id"), nullable=False)
     company_id: Mapped[int] = mapped_column(ForeignKey("companies.id"), nullable=False)
     type: Mapped[ReportType] = mapped_column(Enum(ReportType), nullable=False)
     status: Mapped[ReportStatus] = mapped_column(Enum(ReportStatus), default=ReportStatus.QUEUED)

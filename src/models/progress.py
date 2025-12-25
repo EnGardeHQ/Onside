@@ -44,7 +44,7 @@ class ProgressTracker(Base):
     
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
     report_id: Mapped[int] = mapped_column(ForeignKey("reports.id"), nullable=False)
-    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
+    user_id: Mapped[str] = mapped_column(String(36), ForeignKey("users.id"), nullable=False)
     
     # Status tracking
     status: Mapped[ProgressStatus] = mapped_column(SQLEnum(ProgressStatus), default=ProgressStatus.QUEUED)

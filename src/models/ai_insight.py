@@ -30,7 +30,7 @@ class AIInsight(Base):
 
     # Primary fields
     id: Mapped[int] = mapped_column(primary_key=True)
-    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
+    user_id: Mapped[str] = mapped_column(String(36), ForeignKey("users.id"), nullable=False)
     content_id: Mapped[int] = mapped_column(ForeignKey("contents.id"), nullable=False)
     insight_type: Mapped[str] = mapped_column(SQLEnum(InsightType), nullable=False)
     

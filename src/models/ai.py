@@ -21,7 +21,7 @@ class AIInsight(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
     content_id: Mapped[int] = mapped_column(ForeignKey("contents.id"), nullable=False)
-    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
+    user_id: Mapped[str] = mapped_column(String(36), ForeignKey("users.id"), nullable=False)
     type: Mapped[InsightType] = mapped_column(Enum(InsightType), nullable=False)
     score: Mapped[float] = mapped_column(Float, nullable=False)
     confidence: Mapped[float] = mapped_column(Float, nullable=False)
