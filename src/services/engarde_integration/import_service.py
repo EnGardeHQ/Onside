@@ -29,6 +29,7 @@ from datetime import datetime
 from decimal import Decimal
 from enum import Enum
 import uuid
+import asyncio
 
 from sqlalchemy.orm import Session
 from sqlalchemy import and_, or_, func
@@ -840,8 +841,8 @@ class ImportService:
         logger.debug(f"Importing keyword: {keyword.keyword_text}")
 
         if self.use_api_import:
-            # Use API to import
-            self._import_keyword_via_api(keyword, tenant_uuid, batch_id)
+            # Use API to import - run async function in event loop
+            asyncio.run(self._import_keyword_via_api(keyword, tenant_uuid, batch_id))
         else:
             # Direct database insert
             # NOTE: Requires En Garde database models
@@ -886,7 +887,8 @@ class ImportService:
         logger.debug(f"Importing competitor: {competitor.competitor_name}")
 
         if self.use_api_import:
-            self._import_competitor_via_api(competitor, tenant_uuid, batch_id)
+            # Use API to import - run async function in event loop
+            asyncio.run(self._import_competitor_via_api(competitor, tenant_uuid, batch_id))
         else:
             # Direct database insert (placeholder)
             logger.info(f"Would insert competitor: {competitor.competitor_name} for tenant {tenant_uuid}")
@@ -905,44 +907,143 @@ class ImportService:
         logger.debug(f"Importing content idea: {content_idea.title}")
 
         if self.use_api_import:
-            self._import_content_idea_via_api(content_idea, tenant_uuid, batch_id)
+            # Use API to import - run async function in event loop
+            asyncio.run(self._import_content_idea_via_api(content_idea, tenant_uuid, batch_id))
         else:
             # Direct database insert (placeholder)
             logger.info(f"Would insert content idea: {content_idea.title} for tenant {tenant_uuid}")
 
-    def _import_keyword_via_api(
+    async def _import_keyword_via_api(
         self,
         keyword: EnGardeKeywordSchema,
         tenant_uuid: Optional[str],
         batch_id: str
     ):
-        """Import keyword via En Garde API."""
-        # Placeholder for API-based import
-        # In production:
-        # response = self.engarde_api_client.post(
-        #     f"/api/v1/tenants/{tenant_uuid}/keywords",
-        #     json=keyword.dict()
-        # )
-        # response.raise_for_status()
-        logger.info(f"Would call API to import keyword: {keyword.keyword_text}")
+        """
+        Import keyword via En Garde API.
 
-    def _import_competitor_via_api(
+        Args:
+            keyword: Keyword schema to import
+            tenant_uuid: Tenant UUID for the import
+            batch_id: Batch ID for tracking
+
+        Raises:
+            EnGardeAPIError: If API call fails
+        """
+        try:
+            # Prepare keyword data for API
+            keyword_data = keyword.dict()
+
+            # Add batch tracking metadata
+            if keyword_data.get('metadata'):
+                keyword_data['metadata']['import_batch_id'] = batch_id
+            else:
+                keyword_data['metadata'] = {'import_batch_id': batch_id}
+
+            # Make API call to create keyword
+            logger.info(f"Calling EnGarde API to import keyword: {keyword.keyword_text}")
+
+            response = await self.engarde_api_client.create_keyword(keyword_data)
+
+            if response.success:
+                logger.info(
+                    f"Successfully imported keyword '{keyword.keyword_text}' - "
+                    f"API Response: {response.status_code}"
+                )
+            else:
+                raise Exception(f"API returned error: {response.error}")
+
+        except Exception as e:
+            logger.error(f"Failed to import keyword '{keyword.keyword_text}' via API: {str(e)}")
+            raise
+
+    async def _import_competitor_via_api(
         self,
         competitor: EnGardeCompetitorSchema,
         tenant_uuid: Optional[str],
         batch_id: str
     ):
-        """Import competitor via En Garde API."""
-        logger.info(f"Would call API to import competitor: {competitor.competitor_name}")
+        """
+        Import competitor via En Garde API.
 
-    def _import_content_idea_via_api(
+        Args:
+            competitor: Competitor schema to import
+            tenant_uuid: Tenant UUID for the import
+            batch_id: Batch ID for tracking
+
+        Raises:
+            EnGardeAPIError: If API call fails
+        """
+        try:
+            # Prepare competitor data for API
+            competitor_data = competitor.dict()
+
+            # Add batch tracking metadata
+            if competitor_data.get('metadata'):
+                competitor_data['metadata']['import_batch_id'] = batch_id
+            else:
+                competitor_data['metadata'] = {'import_batch_id': batch_id}
+
+            # Make API call to create competitor
+            logger.info(f"Calling EnGarde API to import competitor: {competitor.competitor_name}")
+
+            response = await self.engarde_api_client.create_competitor(competitor_data)
+
+            if response.success:
+                logger.info(
+                    f"Successfully imported competitor '{competitor.competitor_name}' - "
+                    f"API Response: {response.status_code}"
+                )
+            else:
+                raise Exception(f"API returned error: {response.error}")
+
+        except Exception as e:
+            logger.error(f"Failed to import competitor '{competitor.competitor_name}' via API: {str(e)}")
+            raise
+
+    async def _import_content_idea_via_api(
         self,
         content_idea: EnGardeContentIdeaSchema,
         tenant_uuid: Optional[str],
         batch_id: str
     ):
-        """Import content idea via En Garde API."""
-        logger.info(f"Would call API to import content idea: {content_idea.title}")
+        """
+        Import content idea via En Garde API.
+
+        Args:
+            content_idea: Content idea schema to import
+            tenant_uuid: Tenant UUID for the import
+            batch_id: Batch ID for tracking
+
+        Raises:
+            EnGardeAPIError: If API call fails
+        """
+        try:
+            # Prepare content idea data for API
+            content_idea_data = content_idea.dict()
+
+            # Add batch tracking metadata
+            if content_idea_data.get('metadata'):
+                content_idea_data['metadata']['import_batch_id'] = batch_id
+            else:
+                content_idea_data['metadata'] = {'import_batch_id': batch_id}
+
+            # Make API call to create content idea
+            logger.info(f"Calling EnGarde API to import content idea: {content_idea.title}")
+
+            response = await self.engarde_api_client.create_content_idea(content_idea_data)
+
+            if response.success:
+                logger.info(
+                    f"Successfully imported content idea '{content_idea.title}' - "
+                    f"API Response: {response.status_code}"
+                )
+            else:
+                raise Exception(f"API returned error: {response.error}")
+
+        except Exception as e:
+            logger.error(f"Failed to import content idea '{content_idea.title}' via API: {str(e)}")
+            raise
 
     def _mark_items_confirmed(self, job_id: str, user_selections: Dict[str, List[int]]):
         """Mark selected items as confirmed in Onside staging tables."""

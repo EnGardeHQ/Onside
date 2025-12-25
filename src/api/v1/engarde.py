@@ -26,6 +26,8 @@ from src.services.engarde_integration.import_service import (
     ImportStatistics
 )
 from src.services.engarde_integration.data_transformer import EnGardeDataTransformer
+from src.services.engarde_integration.api_client import EnGardeAPIClient, RetryConfig
+from src.config import settings
 
 # Use the sync get_db from the parent database module
 get_db = database_module.get_db
@@ -1087,16 +1089,25 @@ def confirm_brand_analysis(
         )
 
     try:
-        # Initialize import service
-        # NOTE: For now, we use API import mode since En Garde DB schema is not available
-        # In production, you would configure this based on deployment settings:
-        # - Direct DB mode when both DBs are accessible
-        # - API mode when calling remote En Garde backend
+        # Initialize EnGarde API client
+        # This client handles all communication with the production EnGarde backend
+        engarde_client = EnGardeAPIClient(
+            api_url=settings.ENGARDE_API_URL,
+            api_key=settings.ENGARDE_API_KEY,
+            tenant_uuid=settings.ENGARDE_TENANT_UUID or confirmation.tenant_uuid,
+            timeout=settings.ENGARDE_API_TIMEOUT,
+            retry_config=RetryConfig(
+                max_attempts=settings.ENGARDE_API_MAX_RETRIES,
+                initial_delay=float(settings.ENGARDE_API_RETRY_DELAY)
+            )
+        )
+
+        # Initialize import service with API client
         import_service = ImportService(
             onside_db=db,
             engarde_db=None,  # Not available in this repo
-            use_api_import=True,  # Use API mode for now
-            engarde_api_client=None  # Would be configured in production
+            use_api_import=True,  # Use API mode
+            engarde_api_client=engarde_client
         )
 
         # Execute import with comprehensive statistics

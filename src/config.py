@@ -74,7 +74,15 @@ class Config(BaseSettings):
     CACHE_TTL_KEYWORD_DATA: int = int(os.getenv("CACHE_TTL_KEYWORD_DATA", "604800"))  # 7 days
     CACHE_TTL_API_RESPONSE: int = int(os.getenv("CACHE_TTL_API_RESPONSE", "300"))  # 5 minutes
     CACHE_TTL_ANALYTICS: int = int(os.getenv("CACHE_TTL_ANALYTICS", "1800"))  # 30 minutes
-    
+
+    # EnGarde Production Backend Integration
+    ENGARDE_API_URL: str = os.getenv("ENGARDE_API_URL", "https://api.engarde.com")
+    ENGARDE_API_KEY: str = os.getenv("ENGARDE_API_KEY", "")
+    ENGARDE_TENANT_UUID: str = os.getenv("ENGARDE_TENANT_UUID", "")
+    ENGARDE_API_TIMEOUT: int = int(os.getenv("ENGARDE_API_TIMEOUT", "30"))
+    ENGARDE_API_MAX_RETRIES: int = int(os.getenv("ENGARDE_API_MAX_RETRIES", "3"))
+    ENGARDE_API_RETRY_DELAY: int = int(os.getenv("ENGARDE_API_RETRY_DELAY", "1"))
+
     model_config = {
         'env_file': '.env',
         'env_prefix': '',
