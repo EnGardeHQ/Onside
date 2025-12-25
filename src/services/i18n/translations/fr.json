@@ -1,0 +1,79 @@
+{
+  "app": {
+    "title": "OnSide - Plateforme d'Intelligence Compétitive",
+    "welcome": "Bienvenue sur OnSide",
+    "description": "Intelligence compétitive et analyse de marché basées sur l'IA"
+  },
+  "navigation": {
+    "dashboard": "Tableau de Bord",
+    "reports": "Rapports",
+    "competitors": "Concurrents",
+    "settings": "Paramètres",
+    "logout": "Déconnexion"
+  },
+  "reports": {
+    "title": "Rapports",
+    "new_report": "Nouveau Rapport",
+    "generate": "Générer un Rapport",
+    "download": "Télécharger",
+    "share": "Partager",
+    "type": {
+      "competitor": "Analyse des Concurrents",
+      "market": "Analyse de Marché",
+      "audience": "Analyse d'Audience",
+      "content": "Analyse de Contenu",
+      "sentiment": "Analyse de Sentiment",
+      "seo": "Analyse SEO",
+      "financial": "Analyse Financière"
+    },
+    "status": {
+      "queued": "En Attente",
+      "processing": "En Cours",
+      "completed": "Terminé",
+      "failed": "Échoué"
+    },
+    "progress": {
+      "estimating": "Estimation du temps de complétion...",
+      "percent_complete": "{percent}% Complété",
+      "time_remaining": "Temps restant estimé: {time}",
+      "data_collection": "Collecte de données",
+      "analysis": "Analyse des données",
+      "generating": "Génération du rapport",
+      "finalizing": "Finalisation"
+    }
+  },
+  "competitors": {
+    "title": "Concurrents",
+    "add_new": "Ajouter un Concurrent",
+    "name": "Nom",
+    "website": "Site Web",
+    "industry": "Industrie",
+    "strengths": "Forces",
+    "weaknesses": "Faiblesses",
+    "threat_level": "Niveau de Menace"
+  },
+  "analysis": {
+    "trends": "Tendances",
+    "opportunities": "Opportunités",
+    "threats": "Menaces",
+    "recommendations": "Recommandations",
+    "insights": "Informations Clés",
+    "confidence": "Indice de Confiance"
+  },
+  "financial": {
+    "revenue": "Chiffre d'Affaires",
+    "growth": "Taux de Croissance",
+    "market_share": "Part de Marché",
+    "profitability": "Rentabilité",
+    "investment": "Activité d'Investissement",
+    "valuation": "Évaluation",
+    "comparison": "Comparaison de Référence"
+  },
+  "errors": {
+    "general": "Une erreur est survenue. Veuillez réessayer.",
+    "api_unavailable": "Le service API est actuellement indisponible.",
+    "invalid_input": "Entrée invalide. Veuillez vérifier vos données.",
+    "report_generation_failed": "La génération du rapport a échoué.",
+    "unauthorized": "Accès non autorisé. Veuillez vous reconnecter."
+  }
+}

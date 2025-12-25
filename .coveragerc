@@ -1,0 +1,72 @@
+# Coverage.py configuration for Onside En Garde integration
+
+[run]
+source = src
+branch = True
+parallel = False
+omit =
+    */tests/*
+    */test_*.py
+    */*_test.py
+    */migrations/*
+    */alembic/*
+    */__pycache__/*
+    */site-packages/*
+    */venv/*
+    */env/*
+    */scripts/*
+    */dags/*
+    */frontend/*
+    */node_modules/*
+    */.pytest_cache/*
+
+[report]
+# Regexes for lines to exclude from consideration
+exclude_lines =
+    # Have to re-enable the standard pragma
+    pragma: no cover
+
+    # Don't complain about missing debug-only code
+    def __repr__
+    def __str__
+
+    # Don't complain if tests don't hit defensive assertion code
+    raise AssertionError
+    raise NotImplementedError
+
+    # Don't complain if non-runnable code isn't run
+    if 0:
+    if False:
+    if __name__ == .__main__.:
+
+    # Type checking code
+    if TYPE_CHECKING:
+    if typing.TYPE_CHECKING:
+
+    # Abstract methods
+    @abstractmethod
+    @abc.abstractmethod
+
+    # Pass statements
+    pass
+
+    # Ellipsis
+    \.\.\.
+
+ignore_errors = True
+precision = 2
+show_missing = True
+skip_covered = False
+skip_empty = True
+sort = Cover
+
+[html]
+directory = htmlcov
+title = Onside En Garde Integration Coverage Report
+
+[json]
+output = coverage.json
+pretty_print = True
+
+[xml]
+output = coverage.xml

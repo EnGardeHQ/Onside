@@ -1,0 +1,911 @@
+{
+  "info": {
+    "name": "Capilytics API",
+    "description": "Complete Capilytics API collection with 41+ endpoints for competitive intelligence and analytics",
+    "version": "1.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{access_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000/api/v1",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "user_email",
+      "value": "user@example.com",
+      "type": "string"
+    },
+    {
+      "key": "user_password",
+      "value": "SecurePassword123!",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{user_email}}\",\n  \"password\": \"{{user_password}}\",\n  \"name\": \"John Doe\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/register",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "pm.collectionVariables.set(\"access_token\", jsonData.access_token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{user_email}}\",\n  \"password\": \"{{user_password}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/auth/logout",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "logout"]
+            }
+          }
+        },
+        {
+          "name": "Get User Profile",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/auth/users/1",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "users", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Report Schedules",
+      "item": [
+        {
+          "name": "Create Report Schedule",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"company_id\": 1,\n  \"name\": \"Weekly Competitor Report\",\n  \"description\": \"Automated weekly competitor analysis\",\n  \"report_type\": \"competitor_analysis\",\n  \"cron_expression\": \"0 9 * * MON\",\n  \"parameters\": {\n    \"competitors\": [1, 2, 3],\n    \"metrics\": [\"traffic\", \"engagement\", \"seo\"]\n  },\n  \"email_recipients\": [\"team@company.com\"],\n  \"notify_on_completion\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/report-schedules",
+              "host": ["{{base_url}}"],
+              "path": ["report-schedules"]
+            }
+          }
+        },
+        {
+          "name": "List Report Schedules",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/report-schedules?page=1&page_size=20",
+              "host": ["{{base_url}}"],
+              "path": ["report-schedules"],
+              "query": [
+                {"key": "page", "value": "1"},
+                {"key": "page_size", "value": "20"},
+                {"key": "is_active", "value": "true", "disabled": true}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Report Schedule",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/report-schedules/1",
+              "host": ["{{base_url}}"],
+              "path": ["report-schedules", "1"]
+            }
+          }
+        },
+        {
+          "name": "Update Report Schedule",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Weekly Report\",\n  \"cron_expression\": \"0 10 * * MON\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/report-schedules/1",
+              "host": ["{{base_url}}"],
+              "path": ["report-schedules", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Report Schedule",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/report-schedules/1",
+              "host": ["{{base_url}}"],
+              "path": ["report-schedules", "1"]
+            }
+          }
+        },
+        {
+          "name": "Pause Report Schedule",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/report-schedules/1/pause",
+              "host": ["{{base_url}}"],
+              "path": ["report-schedules", "1", "pause"]
+            }
+          }
+        },
+        {
+          "name": "Resume Report Schedule",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/report-schedules/1/resume",
+              "host": ["{{base_url}}"],
+              "path": ["report-schedules", "1", "resume"]
+            }
+          }
+        },
+        {
+          "name": "Get Schedule Executions",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/report-schedules/1/executions?page=1&page_size=20",
+              "host": ["{{base_url}}"],
+              "path": ["report-schedules", "1", "executions"],
+              "query": [
+                {"key": "page", "value": "1"},
+                {"key": "page_size", "value": "20"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Schedule Stats",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/report-schedules/1/stats",
+              "host": ["{{base_url}}"],
+              "path": ["report-schedules", "1", "stats"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Search History",
+      "item": [
+        {
+          "name": "List Search History",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/search-history?days=30&page=1&page_size=20",
+              "host": ["{{base_url}}"],
+              "path": ["search-history"],
+              "query": [
+                {"key": "days", "value": "30"},
+                {"key": "page", "value": "1"},
+                {"key": "page_size", "value": "20"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Search Analytics",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/search-history/analytics?days=30",
+              "host": ["{{base_url}}"],
+              "path": ["search-history", "analytics"],
+              "query": [
+                {"key": "days", "value": "30"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Cleanup Old Searches",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/search-history/cleanup?days=90",
+              "host": ["{{base_url}}"],
+              "path": ["search-history", "cleanup"],
+              "query": [
+                {"key": "days", "value": "90"}
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Web Scraping",
+      "item": [
+        {
+          "name": "Initiate Scraping",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"https://competitor.com\",\n  \"company_id\": 1,\n  \"competitor_id\": 1,\n  \"capture_screenshot\": true,\n  \"wait_for_selector\": \"#main-content\",\n  \"timeout\": 30000\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/scraping/scrape",
+              "host": ["{{base_url}}"],
+              "path": ["scraping", "scrape"]
+            }
+          }
+        },
+        {
+          "name": "List Scraped Content",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/scraping/content?page=1&page_size=20",
+              "host": ["{{base_url}}"],
+              "path": ["scraping", "content"],
+              "query": [
+                {"key": "page", "value": "1"},
+                {"key": "page_size", "value": "20"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Scraped Content",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/scraping/content/1",
+              "host": ["{{base_url}}"],
+              "path": ["scraping", "content", "1"]
+            }
+          }
+        },
+        {
+          "name": "Get Content Versions",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/scraping/content/1/versions",
+              "host": ["{{base_url}}"],
+              "path": ["scraping", "content", "1", "versions"]
+            }
+          }
+        },
+        {
+          "name": "Compare Content Versions",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/scraping/content/2/diff?compare_to=1",
+              "host": ["{{base_url}}"],
+              "path": ["scraping", "content", "2", "diff"],
+              "query": [
+                {"key": "compare_to", "value": "1"}
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "SEO Services",
+      "item": [
+        {
+          "name": "Google Custom Search",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"competitive intelligence tools\",\n  \"max_results\": 10,\n  \"language\": \"en\",\n  \"date_restrict\": \"d7\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/seo/google-search",
+              "host": ["{{base_url}}"],
+              "path": ["seo", "google-search"]
+            }
+          }
+        },
+        {
+          "name": "Track Brand Mentions",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"brand_name\": \"Capilytics\",\n  \"keywords\": [\"analytics\", \"competitive intelligence\"],\n  \"competitors\": [\"CompetitorA\", \"CompetitorB\"],\n  \"date_restrict\": \"w1\",\n  \"max_results\": 50\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/seo/brand-mentions",
+              "host": ["{{base_url}}"],
+              "path": ["seo", "brand-mentions"]
+            }
+          }
+        },
+        {
+          "name": "Analyze Content Performance",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"https://mycompany.com/blog/article\",\n  \"competitors\": [\"https://competitor1.com\", \"https://competitor2.com\"],\n  \"metrics\": [\"ranking\", \"backlinks\", \"social_shares\"]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/seo/content-performance",
+              "host": ["{{base_url}}"],
+              "path": ["seo", "content-performance"]
+            }
+          }
+        },
+        {
+          "name": "YouTube Video Search",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"competitive analysis tutorial\",\n  \"max_results\": 10,\n  \"order\": \"relevance\",\n  \"video_duration\": \"medium\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/seo/youtube/search",
+              "host": ["{{base_url}}"],
+              "path": ["seo", "youtube", "search"]
+            }
+          }
+        },
+        {
+          "name": "Get YouTube Channel Stats",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/seo/youtube/channel/UCabc123xyz/stats",
+              "host": ["{{base_url}}"],
+              "path": ["seo", "youtube", "channel", "UCabc123xyz", "stats"]
+            }
+          }
+        },
+        {
+          "name": "Get YouTube Video Analytics",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/seo/youtube/video/abc123xyz/analytics",
+              "host": ["{{base_url}}"],
+              "path": ["seo", "youtube", "video", "abc123xyz", "analytics"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Link Deduplication",
+      "item": [
+        {
+          "name": "Detect Duplicates",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"company_id\": 1,\n  \"similarity_threshold\": 0.85,\n  \"include_inactive\": false\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/links/detect-duplicates",
+              "host": ["{{base_url}}"],
+              "path": ["links", "detect-duplicates"]
+            }
+          }
+        },
+        {
+          "name": "Merge Duplicates",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"primary_link_id\": 1,\n  \"duplicate_link_ids\": [2, 3],\n  \"merge_metadata\": true,\n  \"merge_tags\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/links/merge",
+              "host": ["{{base_url}}"],
+              "path": ["links", "merge"]
+            }
+          }
+        },
+        {
+          "name": "Generate Duplicate Report",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/links/duplicates/report?similarity_threshold=0.85",
+              "host": ["{{base_url}}"],
+              "path": ["links", "duplicates", "report"],
+              "query": [
+                {"key": "similarity_threshold", "value": "0.85"}
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "User Preferences",
+      "item": [
+        {
+          "name": "Get Language Preference",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/users/me/language",
+              "host": ["{{base_url}}"],
+              "path": ["users", "me", "language"]
+            }
+          }
+        },
+        {
+          "name": "Set Language Preference",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"language\": \"en\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/users/me/language",
+              "host": ["{{base_url}}"],
+              "path": ["users", "me", "language"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

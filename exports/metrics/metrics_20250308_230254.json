@@ -1,0 +1,83 @@
+{
+  "timestamp": "2025-03-08T23:02:54.948120",
+  "summary": {
+    "validate_database_schema": {
+      "count": 1,
+      "success_rate": 1.0,
+      "avg_duration": 0.040993690490722656,
+      "min_duration": 0.040993690490722656,
+      "max_duration": 0.040993690490722656,
+      "median_duration": 0.040993690490722656
+    },
+    "test_performance_monitoring": {
+      "count": 1,
+      "success_rate": 1.0,
+      "avg_duration": 0,
+      "min_duration": 0,
+      "max_duration": 0,
+      "median_duration": 0
+    },
+    "test_operation": {
+      "count": 1,
+      "success_rate": 1.0,
+      "avg_duration": 0.501075029373169,
+      "min_duration": 0.501075029373169,
+      "max_duration": 0.501075029373169,
+      "median_duration": 0.501075029373169
+    },
+    "test_async_operation": {
+      "count": 1,
+      "success_rate": 1.0,
+      "avg_duration": 0.3010711669921875,
+      "min_duration": 0.3010711669921875,
+      "max_duration": 0.3010711669921875,
+      "median_duration": 0.3010711669921875
+    }
+  },
+  "raw_metrics": {
+    "validate_database_schema": [
+      {
+        "start_time": 1741503774.1047401,
+        "end_time": 1741503774.1457338,
+        "duration": 0.040993690490722656,
+        "success": true,
+        "metadata": {}
+      }
+    ],
+    "test_performance_monitoring": [
+      {
+        "start_time": 1741503774.145736,
+        "end_time": 0,
+        "duration": 0,
+        "success": true,
+        "metadata": {}
+      }
+    ],
+    "test_operation": [
+      {
+        "start_time": 1741503774.145752,
+        "end_time": 1741503774.646827,
+        "duration": 0.501075029373169,
+        "success": true,
+        "metadata": {
+          "metadata": {
+            "test": true
+          }
+        }
+      }
+    ],
+    "test_async_operation": [
+      {
+        "start_time": 1741503774.6468349,
+        "end_time": 1741503774.947906,
+        "duration": 0.3010711669921875,
+        "success": true,
+        "metadata": {
+          "metadata": {
+            "async": true
+          }
+        }
+      }
+    ]
+  }
+}

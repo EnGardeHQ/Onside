@@ -1,0 +1,248 @@
+/* StageIndicator Styles */
+
+.stage-indicator {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+.stage-indicator.horizontal {
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.stage-indicator.vertical {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.stage-indicator.compact {
+  gap: 0.5rem;
+}
+
+.stage-item {
+  display: flex;
+  flex: 1;
+  position: relative;
+}
+
+.stage-indicator.horizontal .stage-item {
+  flex-direction: column;
+  align-items: center;
+}
+
+.stage-indicator.vertical .stage-item {
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.stage-marker {
+  display: flex;
+  position: relative;
+  align-items: center;
+}
+
+.stage-indicator.horizontal .stage-marker {
+  flex-direction: column;
+  width: 100%;
+}
+
+.stage-indicator.vertical .stage-marker {
+  flex-direction: row;
+  margin-right: 1rem;
+}
+
+.stage-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: bold;
+  border: 2px solid;
+  background-color: #fff;
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+.stage-icon.completed {
+  border-color: #28a745;
+  color: #28a745;
+  background-color: #d4edda;
+}
+
+.stage-icon.current {
+  border-color: #1f77b4;
+  color: #1f77b4;
+  background-color: #d1ecf1;
+  box-shadow: 0 0 0 4px rgba(31, 119, 180, 0.1);
+}
+
+.stage-icon.pending {
+  border-color: #e5e7eb;
+  color: #9ca3af;
+  background-color: #f9fafb;
+}
+
+.stage-spinner {
+  width: 20px;
+  height: 20px;
+}
+
+.spinner {
+  width: 100%;
+  height: 100%;
+  border: 2px solid #e5e7eb;
+  border-top-color: #1f77b4;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.stage-connector {
+  position: absolute;
+  background-color: #e5e7eb;
+  transition: background-color 0.3s ease;
+}
+
+.stage-indicator.horizontal .stage-connector {
+  height: 2px;
+  top: 17px;
+  left: calc(50% + 18px);
+  right: calc(-100% + 18px);
+}
+
+.stage-indicator.vertical .stage-connector {
+  width: 2px;
+  left: 17px;
+  top: calc(50% + 18px);
+  bottom: calc(-100% + 18px);
+}
+
+.stage-connector.completed {
+  background-color: #28a745;
+}
+
+.stage-connector.current {
+  background: linear-gradient(
+    to right,
+    #28a745 0%,
+    #28a745 50%,
+    #e5e7eb 50%,
+    #e5e7eb 100%
+  );
+}
+
+.stage-indicator.vertical .stage-connector.current {
+  background: linear-gradient(
+    to bottom,
+    #28a745 0%,
+    #28a745 50%,
+    #e5e7eb 50%,
+    #e5e7eb 100%
+  );
+}
+
+.stage-label {
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.stage-indicator.vertical .stage-label {
+  margin-top: 0;
+  text-align: left;
+  flex: 1;
+}
+
+.stage-name {
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.stage-name.completed {
+  color: #28a745;
+}
+
+.stage-name.current {
+  color: #1f77b4;
+  font-weight: 600;
+}
+
+.stage-name.pending {
+  color: #9ca3af;
+}
+
+.stage-progress-text {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .stage-icon {
+    background-color: #1f2937;
+  }
+
+  .stage-icon.completed {
+    background-color: #064e3b;
+  }
+
+  .stage-icon.current {
+    background-color: #1e3a8a;
+  }
+
+  .stage-icon.pending {
+    background-color: #374151;
+    border-color: #4b5563;
+  }
+
+  .stage-connector {
+    background-color: #4b5563;
+  }
+
+  .stage-name.pending {
+    color: #6b7280;
+  }
+}
+
+/* Accessibility: Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .stage-icon,
+  .stage-connector,
+  .stage-name {
+    transition: none;
+  }
+
+  .spinner {
+    animation: none;
+    border-top-color: #1f77b4;
+  }
+}
+
+/* Compact mode adjustments */
+.stage-indicator.compact .stage-icon {
+  width: 24px;
+  height: 24px;
+  font-size: 0.75rem;
+}
+
+.stage-indicator.compact.horizontal .stage-connector {
+  top: 11px;
+  left: calc(50% + 12px);
+  right: calc(-100% + 12px);
+}
+
+.stage-indicator.compact.vertical .stage-connector {
+  left: 11px;
+  top: calc(50% + 12px);
+  bottom: calc(-100% + 12px);
+}

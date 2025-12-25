@@ -1,0 +1,4 @@
+{
+  "error": "'PDFExportService' object has no attribute 'generate_pdf'",
+  "traceback": "Traceback (most recent call last):\n  File \"/Users/tobymorning/OnSide/complete_jll_report.py\", line 729, in generate_report\n    pdf_path = self.pdf_export.generate_pdf(report_data)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAttributeError: 'PDFExportService' object has no attribute 'generate_pdf'\n"
+}

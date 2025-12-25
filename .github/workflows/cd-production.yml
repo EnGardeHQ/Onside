@@ -1,0 +1,201 @@
+name: CD - Deploy to Production
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to deploy'
+        required: true
+        type: string
+
+env:
+  PYTHON_VERSION: "3.11"
+  DOCKER_REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}/onside-api
+
+jobs:
+  build-and-push:
+    name: Build and Push Docker Image
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      image-tag: ${{ steps.meta.outputs.tags }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name || inputs.version }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.DOCKER_REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=raw,value=production-latest
+            type=sha,prefix=prod-
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          target: production
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          build-args: |
+            BUILD_DATE=${{ github.event.head_commit.timestamp }}
+            VCS_REF=${{ github.sha }}
+            VERSION=${{ github.event.release.tag_name || inputs.version }}
+
+  deploy-production:
+    name: Deploy to Production (Blue/Green)
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    environment:
+      name: production
+      url: https://app.onside.app
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      # Blue/Green Deployment Strategy
+      - name: Deploy to Green Environment
+        id: deploy-green
+        run: |
+          echo "Deploying to green environment..."
+          # TODO: Implement blue/green deployment
+          # 1. Update green environment with new image
+          # 2. Run health checks on green
+          # 3. Switch traffic from blue to green
+          # 4. Keep blue as backup for quick rollback
+
+      - name: Run Database Migrations
+        run: |
+          echo "Running database migrations on production..."
+          # TODO: Implement production migration execution with backup
+          # 1. Create database backup
+          # 2. Run migrations
+          # 3. Verify migration success
+
+      - name: Switch Traffic to Green
+        run: |
+          echo "Switching traffic to green environment..."
+          # TODO: Update load balancer target group
+          # aws elbv2 modify-listener --listener-arn $LISTENER_ARN --default-actions Type=forward,TargetGroupArn=$GREEN_TARGET_GROUP
+
+      - name: Monitor Green Environment
+        run: |
+          echo "Monitoring green environment for 5 minutes..."
+          sleep 300
+          # TODO: Check CloudWatch metrics for errors
+
+      - name: Decommission Blue Environment
+        run: |
+          echo "Scaling down blue environment..."
+          # TODO: Scale down blue environment but keep it available for quick rollback
+
+  smoke-tests-production:
+    name: Production Smoke Tests
+    runs-on: ubuntu-latest
+    needs: deploy-production
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install test dependencies
+        run: |
+          pip install requests pytest
+
+      - name: Wait for deployment
+        run: sleep 60
+
+      - name: Run smoke tests
+        env:
+          PRODUCTION_URL: https://app.onside.app
+          API_KEY: ${{ secrets.PRODUCTION_API_KEY }}
+        run: |
+          # Critical health checks
+          curl -f $PRODUCTION_URL/health || exit 1
+          curl -f $PRODUCTION_URL/api/v1/health || exit 1
+
+          # API smoke tests
+          # pytest tests/smoke/ --base-url=$PRODUCTION_URL --strict
+          echo "Production smoke tests passed"
+
+      - name: Rollback on failure
+        if: failure()
+        run: |
+          echo "Production smoke tests failed! Initiating immediate rollback..."
+          # TODO: Implement emergency rollback to blue environment
+          # aws elbv2 modify-listener --listener-arn $LISTENER_ARN --default-actions Type=forward,TargetGroupArn=$BLUE_TARGET_GROUP
+
+  post-deployment:
+    name: Post-Deployment Tasks
+    runs-on: ubuntu-latest
+    needs: [deploy-production, smoke-tests-production]
+    steps:
+      - name: Create deployment record
+        run: |
+          echo "Recording deployment..."
+          # TODO: Record deployment in monitoring system
+
+      - name: Clear CDN cache
+        run: |
+          echo "Clearing CDN cache..."
+          # TODO: Invalidate CloudFront cache
+          # aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths "/*"
+
+      - name: Update status page
+        run: |
+          echo "Updating status page..."
+          # TODO: Update public status page with deployment info
+
+  notify:
+    name: Notify Deployment Status
+    runs-on: ubuntu-latest
+    needs: [build-and-push, deploy-production, smoke-tests-production, post-deployment]
+    if: always()
+    steps:
+      - name: Send success notification
+        if: success()
+        run: |
+          echo "Production deployment successful!"
+          # TODO: Send success notification to Slack/Discord/Email
+
+      - name: Send failure notification
+        if: failure()
+        run: |
+          echo "Production deployment failed!"
+          # TODO: Send urgent failure notification

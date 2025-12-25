@@ -1,0 +1,4 @@
+{
+  "error": "MarketAnalysisService.__init__() missing 2 required positional arguments: 'market_data_service' and 'predictive_model_service'",
+  "traceback": "Traceback (most recent call last):\n  File \"/Users/tobymorning/OnSide/complete_jll_report.py\", line 209, in generate_report\n    await self.setup_services()\n  File \"/Users/tobymorning/OnSide/complete_jll_report.py\", line 176, in setup_services\n    self.market_analysis = MarketAnalysisService(\n                           ^^^^^^^^^^^^^^^^^^^^^^\nTypeError: MarketAnalysisService.__init__() missing 2 required positional arguments: 'market_data_service' and 'predictive_model_service'\n"
+}

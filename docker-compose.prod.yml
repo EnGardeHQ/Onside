@@ -1,0 +1,475 @@
+version: "3.8"
+
+# =============================================================================
+# OnSide Production Docker Compose Configuration
+# =============================================================================
+# This configuration is optimized for production deployment with:
+# - Security hardening (non-root users, read-only filesystems where possible)
+# - Health checks for all services
+# - Resource limits and restart policies
+# - Proper logging configuration
+# - Nginx reverse proxy for frontend
+# - SSL/TLS ready (configure with your certificates)
+# =============================================================================
+
+services:
+  # ===========================================================================
+  # Frontend - React Application with Nginx
+  # ===========================================================================
+  onside-frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+      args:
+        - VITE_API_URL=${VITE_API_URL:-http://localhost:8000}
+        - VITE_WS_URL=${VITE_WS_URL:-ws://localhost:8000}
+    container_name: onside-frontend
+    restart: unless-stopped
+    ports:
+      - "${FRONTEND_PORT:-80}:80"
+      - "${FRONTEND_SSL_PORT:-443}:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+      - nginx-cache:/var/cache/nginx
+      - nginx-logs:/var/log/nginx
+    depends_on:
+      onside-api:
+        condition: service_healthy
+    networks:
+      - onside-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ===========================================================================
+  # Backend - FastAPI Application
+  # ===========================================================================
+  onside-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: onside-api-prod
+    restart: unless-stopped
+    ports:
+      - "${API_PORT:-8000}:8000"
+    env_file:
+      - .env.production
+    environment:
+      - APP_ENV=production
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@onside-db:5432/${POSTGRES_DB}
+      - REDIS_URL=redis://:${REDIS_PASSWORD}@onside-redis:6379/0
+      - CELERY_BROKER_URL=redis://:${REDIS_PASSWORD}@onside-redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://:${REDIS_PASSWORD}@onside-redis:6379/0
+      - MINIO_ENDPOINT=onside-minio:9000
+      - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY}
+      - MINIO_SECRET_KEY=${MINIO_SECRET_KEY}
+      - SECRET_KEY=${SECRET_KEY}
+      - ALGORITHM=${ALGORITHM:-HS256}
+      - ACCESS_TOKEN_EXPIRE_MINUTES=${ACCESS_TOKEN_EXPIRE_MINUTES:-30}
+    volumes:
+      - ./logs:/app/logs
+      - ./exports:/app/exports
+      - api-uploads:/app/uploads
+    depends_on:
+      onside-db:
+        condition: service_healthy
+      onside-redis:
+        condition: service_healthy
+      onside-minio:
+        condition: service_healthy
+    networks:
+      - onside-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 4G
+        reservations:
+          cpus: '1'
+          memory: 2G
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "5"
+
+  # ===========================================================================
+  # Database - PostgreSQL
+  # ===========================================================================
+  onside-db:
+    image: postgres:15-alpine
+    container_name: onside-db-prod
+    restart: unless-stopped
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_INITDB_ARGS=--encoding=UTF-8 --lc-collate=en_US.UTF-8 --lc-ctype=en_US.UTF-8
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - postgres-data-prod:/var/lib/postgresql/data
+      - ./backups:/backups
+      - ./scripts/postgres-init.sh:/docker-entrypoint-initdb.d/init.sh:ro
+    networks:
+      - onside-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 4G
+        reservations:
+          cpus: '1'
+          memory: 2G
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "5"
+    command: >
+      postgres
+      -c shared_buffers=512MB
+      -c effective_cache_size=2GB
+      -c maintenance_work_mem=128MB
+      -c checkpoint_completion_target=0.9
+      -c wal_buffers=16MB
+      -c default_statistics_target=100
+      -c random_page_cost=1.1
+      -c effective_io_concurrency=200
+      -c work_mem=8MB
+      -c min_wal_size=1GB
+      -c max_wal_size=4GB
+      -c max_connections=200
+      -c log_statement=mod
+      -c log_duration=on
+      -c log_min_duration_statement=1000
+
+  # ===========================================================================
+  # Redis - Cache and Message Broker
+  # ===========================================================================
+  onside-redis:
+    image: redis:7-alpine
+    container_name: onside-redis-prod
+    restart: unless-stopped
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+    volumes:
+      - redis-data-prod:/data
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf:ro
+    networks:
+      - onside-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 1G
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    command: >
+      sh -c "redis-server
+      --requirepass ${REDIS_PASSWORD}
+      --appendonly yes
+      --appendfsync everysec
+      --maxmemory 1gb
+      --maxmemory-policy allkeys-lru
+      --save 900 1
+      --save 300 10
+      --save 60 10000
+      --loglevel warning"
+
+  # ===========================================================================
+  # MinIO - Object Storage
+  # ===========================================================================
+  onside-minio:
+    image: minio/minio:latest
+    container_name: onside-minio-prod
+    restart: unless-stopped
+    ports:
+      - "${MINIO_PORT:-9000}:9000"
+      - "${MINIO_CONSOLE_PORT:-9001}:9001"
+    environment:
+      - MINIO_ROOT_USER=${MINIO_ACCESS_KEY}
+      - MINIO_ROOT_PASSWORD=${MINIO_SECRET_KEY}
+      - MINIO_BROWSER_REDIRECT_URL=${MINIO_BROWSER_REDIRECT_URL:-http://localhost:9001}
+    volumes:
+      - minio-data-prod:/data
+    networks:
+      - onside-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 1G
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    command: server /data --console-address ":9001"
+
+  # ===========================================================================
+  # Celery Worker - Background Task Processing
+  # ===========================================================================
+  onside-celery-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: onside-celery-worker
+    restart: unless-stopped
+    env_file:
+      - .env.production
+    environment:
+      - APP_ENV=production
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@onside-db:5432/${POSTGRES_DB}
+      - REDIS_URL=redis://:${REDIS_PASSWORD}@onside-redis:6379/0
+      - CELERY_BROKER_URL=redis://:${REDIS_PASSWORD}@onside-redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://:${REDIS_PASSWORD}@onside-redis:6379/0
+      - MINIO_ENDPOINT=onside-minio:9000
+      - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY}
+      - MINIO_SECRET_KEY=${MINIO_SECRET_KEY}
+    volumes:
+      - ./logs:/app/logs
+      - ./exports:/app/exports
+      - celery-data:/app/celery
+    depends_on:
+      onside-db:
+        condition: service_healthy
+      onside-redis:
+        condition: service_healthy
+      onside-minio:
+        condition: service_healthy
+    networks:
+      - onside-network
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 4G
+        reservations:
+          cpus: '1'
+          memory: 2G
+      replicas: ${CELERY_WORKER_REPLICAS:-2}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "5"
+    command: >
+      celery -A src.celery_app worker
+      --loglevel=info
+      --concurrency=${CELERY_WORKER_CONCURRENCY:-4}
+      --max-tasks-per-child=1000
+      --time-limit=1800
+      --soft-time-limit=1500
+      -Q default,reports,scraping,analytics,emails,data_ingestion
+
+  # ===========================================================================
+  # Celery Beat - Task Scheduler
+  # ===========================================================================
+  onside-celery-beat:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: onside-celery-beat
+    restart: unless-stopped
+    env_file:
+      - .env.production
+    environment:
+      - APP_ENV=production
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@onside-db:5432/${POSTGRES_DB}
+      - REDIS_URL=redis://:${REDIS_PASSWORD}@onside-redis:6379/0
+      - CELERY_BROKER_URL=redis://:${REDIS_PASSWORD}@onside-redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://:${REDIS_PASSWORD}@onside-redis:6379/0
+    volumes:
+      - ./logs:/app/logs
+      - celery-beat-data:/app/celery-beat
+    depends_on:
+      onside-db:
+        condition: service_healthy
+      onside-redis:
+        condition: service_healthy
+    networks:
+      - onside-network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    command: celery -A src.celery_app beat --loglevel=info --pidfile=/tmp/celerybeat.pid
+
+  # ===========================================================================
+  # Flower - Celery Monitoring Dashboard
+  # ===========================================================================
+  onside-flower:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: onside-flower
+    restart: unless-stopped
+    ports:
+      - "${FLOWER_PORT:-5555}:5555"
+    environment:
+      - CELERY_BROKER_URL=redis://:${REDIS_PASSWORD}@onside-redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://:${REDIS_PASSWORD}@onside-redis:6379/0
+      - FLOWER_BASIC_AUTH=${FLOWER_BASIC_AUTH}
+      - FLOWER_PORT=5555
+    volumes:
+      - flower-data:/data
+    depends_on:
+      onside-redis:
+        condition: service_healthy
+    networks:
+      - onside-network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    command: celery -A src.celery_app flower --port=5555 --persistent=true --db=/data/flower.db
+
+  # ===========================================================================
+  # Playwright - Web Scraping Service (Optional - only if needed)
+  # ===========================================================================
+  onside-playwright:
+    image: mcr.microsoft.com/playwright:v1.40.0-focal
+    container_name: onside-playwright
+    restart: unless-stopped
+    environment:
+      - PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
+    volumes:
+      - playwright-data:/ms-playwright
+    networks:
+      - onside-network
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 1G
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    command: tail -f /dev/null
+
+# =============================================================================
+# Networks
+# =============================================================================
+networks:
+  onside-network:
+    driver: bridge
+    name: onside-network-prod
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
+
+# =============================================================================
+# Volumes - Persistent Data Storage
+# =============================================================================
+volumes:
+  postgres-data-prod:
+    name: onside-postgres-data-prod
+    driver: local
+  redis-data-prod:
+    name: onside-redis-data-prod
+    driver: local
+  minio-data-prod:
+    name: onside-minio-data-prod
+    driver: local
+  nginx-cache:
+    name: onside-nginx-cache
+    driver: local
+  nginx-logs:
+    name: onside-nginx-logs
+    driver: local
+  api-uploads:
+    name: onside-api-uploads
+    driver: local
+  celery-data:
+    name: onside-celery-data
+    driver: local
+  celery-beat-data:
+    name: onside-celery-beat-data
+    driver: local
+  flower-data:
+    name: onside-flower-data
+    driver: local
+  playwright-data:
+    name: onside-playwright-data
+    driver: local

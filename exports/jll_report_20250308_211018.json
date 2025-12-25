@@ -1,0 +1,4 @@
+{
+  "error": "name 'MarketDataService' is not defined",
+  "traceback": "Traceback (most recent call last):\n  File \"/Users/tobymorning/OnSide/complete_jll_report.py\", line 221, in generate_report\n    await self.setup_services()\n  File \"/Users/tobymorning/OnSide/complete_jll_report.py\", line 177, in setup_services\n    market_data_service = MarketDataService(company_repository=company_repository)\n                          ^^^^^^^^^^^^^^^^^\nNameError: name 'MarketDataService' is not defined\n"
+}

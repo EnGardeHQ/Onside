@@ -1,0 +1,79 @@
+{
+  "app": {
+    "title": "OnSide - 競合情報プラットフォーム",
+    "welcome": "OnSideへようこそ",
+    "description": "AI駆動の競合情報と市場分析"
+  },
+  "navigation": {
+    "dashboard": "ダッシュボード",
+    "reports": "レポート",
+    "competitors": "競合他社",
+    "settings": "設定",
+    "logout": "ログアウト"
+  },
+  "reports": {
+    "title": "レポート",
+    "new_report": "新規レポート",
+    "generate": "レポート生成",
+    "download": "ダウンロード",
+    "share": "共有",
+    "type": {
+      "competitor": "競合分析",
+      "market": "市場分析",
+      "audience": "オーディエンス分析",
+      "content": "コンテンツ分析",
+      "sentiment": "感情分析",
+      "seo": "SEO分析",
+      "financial": "財務分析"
+    },
+    "status": {
+      "queued": "待機中",
+      "processing": "処理中",
+      "completed": "完了",
+      "failed": "失敗"
+    },
+    "progress": {
+      "estimating": "完了時間を推定中...",
+      "percent_complete": "{percent}% 完了",
+      "time_remaining": "推定残り時間: {time}",
+      "data_collection": "データ収集中",
+      "analysis": "データ分析中",
+      "generating": "レポート生成中",
+      "finalizing": "最終処理"
+    }
+  },
+  "competitors": {
+    "title": "競合他社",
+    "add_new": "競合他社を追加",
+    "name": "名前",
+    "website": "ウェブサイト",
+    "industry": "業界",
+    "strengths": "強み",
+    "weaknesses": "弱み",
+    "threat_level": "脅威レベル"
+  },
+  "analysis": {
+    "trends": "トレンド",
+    "opportunities": "機会",
+    "threats": "脅威",
+    "recommendations": "推奨事項",
+    "insights": "主要な洞察",
+    "confidence": "信頼度スコア"
+  },
+  "financial": {
+    "revenue": "収益",
+    "growth": "成長率",
+    "market_share": "市場シェア",
+    "profitability": "収益性",
+    "investment": "投資活動",
+    "valuation": "企業価値",
+    "comparison": "ベンチマーク比較"
+  },
+  "errors": {
+    "general": "エラーが発生しました。もう一度お試しください。",
+    "api_unavailable": "APIサービスは現在利用できません。",
+    "invalid_input": "入力が無効です。データを確認してください。",
+    "report_generation_failed": "レポート生成に失敗しました。",
+    "unauthorized": "認証されていません。再度ログインしてください。"
+  }
+}

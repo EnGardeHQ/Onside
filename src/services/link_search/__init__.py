@@ -1,0 +1,1 @@
+"""Link search service module."""

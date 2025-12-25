@@ -1,0 +1,4 @@
+{
+  "error": "'PDFExportService' object has no attribute 'logger'",
+  "traceback": "Traceback (most recent call last):\n  File \"/Users/tobymorning/OnSide/complete_jll_report.py\", line 791, in generate_report\n    pdf_path = self.pdf_export.generate_pdf(report_data)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/tobymorning/OnSide/complete_jll_report.py\", line 541, in generate_pdf\n    service.logger.info(f\"\u2705 Report saved to {json_path}\")\n    ^^^^^^^^^^^^^^\nAttributeError: 'PDFExportService' object has no attribute 'logger'\n"
+}

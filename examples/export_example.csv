@@ -1,0 +1,13 @@
+type,keyword,domain,topic,source,search_volume,difficulty,relevance_score,priority,current_ranking,category,traffic_potential,gap_type,recommended_format,overlap_percentage,metadata
+keyword,email marketing automation,,,nlp_extraction,12000,65.5,0.87,high,,nlp_extraction,,,,,"onside_id=123,confirmed=True"
+keyword,marketing automation software,,,website_content,8500,72.3,0.82,high,15,website_content,,,,,"onside_id=124,confirmed=True"
+keyword,crm email marketing,,,serp_analysis,5200,58.1,0.75,high,,serp_analysis,,,,,"onside_id=125,confirmed=True"
+keyword,email campaign tools,,,nlp_extraction,3400,45.2,0.68,medium,,nlp_extraction,,,,,"onside_id=126,confirmed=False"
+keyword,automated email sequences,,,website_content,2800,52.7,0.71,medium,,website_content,,,,,"onside_id=127,confirmed=False"
+competitor,,mailchimp.com,,,,,0.92,high,,primary,,,,78.5,"onside_id=201,name=Mailchimp,confirmed=True"
+competitor,,hubspot.com,,,,,0.88,high,,primary,,,,65.2,"onside_id=202,name=HubSpot,confirmed=True"
+competitor,,activecampaign.com,,,,,0.75,medium,,secondary,,,,45.8,"onside_id=203,name=ActiveCampaign,confirmed=False"
+competitor,,sendinblue.com,,,,,0.68,medium,,secondary,,,,38.3,"onside_id=204,name=Sendinblue,confirmed=False"
+content_opportunity,,,Email segmentation best practices,content_gap_analysis,,45.0,,high,,,,5000,missing_content,guide,,"onside_id=301"
+content_opportunity,,,Marketing automation ROI calculator,content_gap_analysis,,38.5,,high,,,,3200,missing_content,blog_post,,"onside_id=302"
+content_opportunity,,,Email deliverability checklist,content_gap_analysis,,52.1,,medium,,,,1800,weak_content,infographic,,"onside_id=303"

@@ -1,0 +1,4 @@
+{
+  "error": "'dict' object has no attribute 'id'",
+  "traceback": "Traceback (most recent call last):\n  File \"/Users/tobymorning/OnSide/complete_jll_report.py\", line 449, in generate_report\n    \"id\": report.id,\n          ^^^^^^^^^\nAttributeError: 'dict' object has no attribute 'id'\n"
+}

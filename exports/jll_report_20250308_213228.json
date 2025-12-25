@@ -1,0 +1,45 @@
+{
+  "id": null,
+  "title": "JLL Competitive Analysis Report",
+  "company": {
+    "id": 2,
+    "name": "Jones Lang LaSalle (JLL)",
+    "description": "Global commercial real estate services company specializing in property services, facility management, and investment management.",
+    "industry": "Real Estate Services",
+    "domain": "jll.com"
+  },
+  "generated_at": "2025-03-09T05:32:28.005362",
+  "web_scraping_data": {
+    "target_company": {
+      "links": [
+        {
+          "url": "https://jll.com/about",
+          "title": "About Us"
+        },
+        {
+          "url": "https://jll.com/services",
+          "title": "Services"
+        }
+      ],
+      "content": {
+        "url": "jll.com",
+        "error": "(sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: relation \"scraping_results\" does not exist\n[SQL: SELECT * FROM scraping_results WHERE domain = $1 ORDER BY created_at DESC LIMIT 1]\n[parameters: ('jll.com',)]\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+        "timestamp": "2025-03-09T05:32:27.990503"
+      },
+      "engagement": {
+        "pageviews": 12500,
+        "unique_visitors": 8700,
+        "bounce_rate": 0.45,
+        "avg_time_on_page": 120,
+        "data_quality_score": 0.75
+      }
+    },
+    "competitors": {}
+  },
+  "competitors": [],
+  "metrics": {
+    "WEB_TRAFFIC": {
+      "value": 3900.0,
+      "data_quality_score": 0.95,
+      "confidence_score": 0.95,
+      "date": 

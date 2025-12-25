@@ -1,0 +1,121 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment (all patterns)
+venv/
+ENV/
+env/
+.env
+.venv/
+venv_py311/
+py311_venv/
+*_venv/
+*venv*/
+onside_*/
+fresh_venv/
+new_venv/
+py_env/
+temp_venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
+
+# Database
+*.db
+*.sqlite3
+*.db.backup
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Test coverage
+.coverage
+.coverage.*
+htmlcov/
+coverage/
+.pytest_cache/
+
+# Temporary files
+*.tmp
+*.bak
+*.backup
+
+# Project specific
+exports/
+reports/
+.windsurfrules
+
+# Data directories
+*-data/
+graphdb-data/
+media/
+plugins/
+
+# Airflow/DAGs (if not versioned)
+airflow/
+dags/
+
+# Playwright (move to config/ if needed)
+playwright.config.js
+playwright-report/
+
+# Archived files
+archived/
+
+# Migration directories
+migrations/
+
+# Local development
+.local/
+
+# Database configuration
+alembic.ini
+*.env
+.env.*
+!.env.example
+
+# Sensitive files
+*_key.pem
+*.p12
+*.pfx
+*.pem
+*.crt
+*.cert
+*.cer
+
+# Local development overrides
+local_settings.py
+local_config.py

@@ -1,0 +1,79 @@
+{
+  "app": {
+    "title": "OnSide - Competitive Intelligence Platform",
+    "welcome": "Welcome to OnSide",
+    "description": "AI-driven competitive intelligence and market analysis"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "reports": "Reports",
+    "competitors": "Competitors",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
+  "reports": {
+    "title": "Reports",
+    "new_report": "New Report",
+    "generate": "Generate Report",
+    "download": "Download",
+    "share": "Share",
+    "type": {
+      "competitor": "Competitor Analysis",
+      "market": "Market Analysis",
+      "audience": "Audience Analysis",
+      "content": "Content Analysis",
+      "sentiment": "Sentiment Analysis",
+      "seo": "SEO Analysis",
+      "financial": "Financial Analysis"
+    },
+    "status": {
+      "queued": "Queued",
+      "processing": "Processing",
+      "completed": "Completed",
+      "failed": "Failed"
+    },
+    "progress": {
+      "estimating": "Estimating completion time...",
+      "percent_complete": "{percent}% Complete",
+      "time_remaining": "Estimated time remaining: {time}",
+      "data_collection": "Collecting data",
+      "analysis": "Analyzing data",
+      "generating": "Generating report",
+      "finalizing": "Finalizing"
+    }
+  },
+  "competitors": {
+    "title": "Competitors",
+    "add_new": "Add Competitor",
+    "name": "Name",
+    "website": "Website",
+    "industry": "Industry",
+    "strengths": "Strengths",
+    "weaknesses": "Weaknesses",
+    "threat_level": "Threat Level"
+  },
+  "analysis": {
+    "trends": "Trends",
+    "opportunities": "Opportunities",
+    "threats": "Threats",
+    "recommendations": "Recommendations",
+    "insights": "Key Insights",
+    "confidence": "Confidence Score"
+  },
+  "financial": {
+    "revenue": "Revenue",
+    "growth": "Growth Rate",
+    "market_share": "Market Share",
+    "profitability": "Profitability",
+    "investment": "Investment Activity",
+    "valuation": "Valuation",
+    "comparison": "Benchmark Comparison"
+  },
+  "errors": {
+    "general": "An error occurred. Please try again.",
+    "api_unavailable": "API service is currently unavailable.",
+    "invalid_input": "Invalid input. Please check your data.",
+    "report_generation_failed": "Report generation failed.",
+    "unauthorized": "Unauthorized access. Please login again."
+  }
+}

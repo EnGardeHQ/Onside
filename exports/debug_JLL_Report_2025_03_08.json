@@ -1,0 +1,463 @@
+{
+  "company": {
+    "id": 2,
+    "name": "Jones Lang LaSalle (JLL)",
+    "industry": "Real Estate Services",
+    "description": "Global commercial real estate services company specializing in property services, facility management, and investment management."
+  },
+  "report_date": "2025-03-08T20:21:39.894380",
+  "metrics": [
+    {
+      "type": "WEB_TRAFFIC",
+      "value": 1000.0,
+      "quality": 0.95,
+      "confidence": 0.95,
+      "date": "2025-03-08T20:41:34.311240"
+    },
+    {
+      "type": "SOCIAL_ENGAGEMENT",
+      "value": 500.0,
+      "quality": 0.9,
+      "confidence": 0.9,
+      "date": "2025-03-08T20:41:34.311240"
+    },
+    {
+      "type": "WEB_TRAFFIC",
+      "value": 1100.0,
+      "quality": 0.95,
+      "confidence": 0.95,
+      "date": "2025-03-07T20:41:34.311240"
+    },
+    {
+      "type": "SOCIAL_ENGAGEMENT",
+      "value": 550.0,
+      "quality": 0.9,
+      "confidence": 0.9,
+      "date": "2025-03-07T20:41:34.311240"
+    },
+    {
+      "type": "SOCIAL_ENGAGEMENT",
+      "value": 600.0,
+      "quality": 0.9,
+      "confidence": 0.9,
+      "date": "2025-03-06T20:41:34.311240"
+    },
+    {
+      "type": "WEB_TRAFFIC",
+      "value": 1200.0,
+      "quality": 0.95,
+      "confidence": 0.95,
+      "date": "2025-03-06T20:41:34.311240"
+    },
+    {
+      "type": "WEB_TRAFFIC",
+      "value": 1300.0,
+      "quality": 0.95,
+      "confidence": 0.95,
+      "date": "2025-03-05T20:41:34.311240"
+    },
+    {
+      "type": "SOCIAL_ENGAGEMENT",
+      "value": 650.0,
+      "quality": 0.9,
+      "confidence": 0.9,
+      "date": "2025-03-05T20:41:34.311240"
+    },
+    {
+      "type": "WEB_TRAFFIC",
+      "value": 1400.0,
+      "quality": 0.95,
+      "confidence": 0.95,
+      "date": "2025-03-04T20:41:34.311240"
+    },
+    {
+      "type": "SOCIAL_ENGAGEMENT",
+      "value": 700.0,
+      "quality": 0.9,
+      "confidence": 0.9,
+      "date": "2025-03-04T20:41:34.311240"
+    },
+    {
+      "type": "WEB_TRAFFIC",
+      "value": 1500.0,
+      "quality": 0.95,
+      "confidence": 0.95,
+      "date": "2025-03-03T20:41:34.311240"
+    },
+    {
+      "type": "SOCIAL_ENGAGEMENT",
+      "value": 750.0,
+      "quality": 0.9,
+      "confidence": 0.9,
+      "date": "2025-03-03T20:41:34.311240"
+    },
+    {
+      "type": "WEB_TRAFFIC",
+      "value": 1600.0,
+      "quality": 0.95,
+      "confidence": 0.95,
+      "date": "2025-03-02T20:41:34.311240"
+    },
+    {
+      "type": "SOCIAL_ENGAGEMENT",
+      "value": 800.0,
+      "quality": 0.9,
+      "confidence": 0.9,
+      "date": "2025-03-02T20:41:34.311240"
+    },
+    {
+      "type": "WEB_TRAFFIC",
+      "value": 1700.0,
+      "quality": 0.95,
+      "confidence": 0.95,
+      "date": "2025-03-01T20:41:34.311240"
+    },
+    {
+      "type": "SOCIAL_ENGAGEMENT",
+      "value": 850.0,
+      "quality": 0.9,
+      "confidence": 0.9,
+      "date": "2025-03-01T20:41:34.311240"
+    },
+    {
+      "type": "WEB_TRAFFIC",
+      "value": 1800.0,
+      "quality": 0.95,
+      "confidence": 0.95,
+      "date": "2025-02-28T20:41:34.311240"
+    },
+    {
+      "type": "SOCIAL_ENGAGEMENT",
+      "value": 900.0,
+      "quality": 0.9,
+      "confidence": 0.9,
+      "date": "2025-02-28T20:41:34.311240"
+    },
+    {
+      "type": "WEB_TRAFFIC",
+      "value": 1900.0,
+      "quality": 0.95,
+      "confidence": 0.95,
+      "date": "2025-02-27T20:41:34.311240"
+    },
+    {
+      "type": "SOCIAL_ENGAGEMENT",
+      "value": 950.0,
+      "quality": 0.9,
+      "confidence": 0.9,
+      "date": "2025-02-27T20:41:34.311240"
+    },
+    {
+      "type": "WEB_TRAFFIC",
+      "value": 2000.0,
+      "quality": 0.95,
+      "confidence": 0.95,
+      "date": "2025-02-26T20:41:34.311240"
+    },
+    {
+      "type": "SOCIAL_ENGAGEMENT",
+      "value": 1000.0,
+      "quality": 0.9,
+      "confidence": 0.9,
+      "date": "2025-02-26T20:41:34.311240"
+    },
+    {
+      "type": "WEB_TRAFFIC",
+      "value": 2100.0,
+      "quality": 0.95,
+      "confidence": 0.95,
+      "date": "2025-02-25T20:41:34.311240"
+    },
+    {
+      "type": "SOCIAL_ENGAGEMENT",
+      "value": 1050.0,
+      "quality": 0.9,
+      "confidence": 0.9,
+      "date": "2025-02-25T20:41:34.311240"
+    },
+    {
+      "type": "WEB_TRAFFIC",
+      "value": 2200.0,
+      "quality": 0.95,
+      "confidence": 0.95,
+      "date": "2025-02-24T20:41:34.311240"
+    },
+    {
+      "type": "SOCIAL_ENGAGEMENT",
+      "value": 1100.0,
+      "quality": 0.9,
+      "confidence": 0.9,
+      "date": "2025-02-24T20:41:34.311240"
+    },
+    {
+      "type": "WEB_TRAFFIC",
+      "value": 2300.0,
+      "quality": 0.95,
+      "confidence": 0.95,
+      "date": "2025-02-23T20:41:34.311240"
+    },
+    {
+      "type": "SOCIAL_ENGAGEMENT",
+      "value": 1150.0,
+      "quality": 0.9,
+      "confidence": 0.9,
+      "date": "2025-02-23T20:41:34.311240"
+    },
+    {
+      "type": "WEB_TRAFFIC",
+      "value": 2400.0,
+      "quality": 0.95,
+      "confidence": 0.95,
+      "date": "2025-02-22T20:41:34.311240"
+    },
+    {
+      "type": "SOCIAL_ENGAGEMENT",
+      "value": 1200.0,
+      "quality": 0.9,
+      "confidence": 0.9,
+      "date": "2025-02-22T20:41:34.311240"
+    },
+    {
+      "type": "WEB_TRAFFIC",
+      "value": 2500.0,
+      "quality": 0.95,
+      "confidence": 0.95,
+      "date": "2025-02-21T20:41:34.311240"
+    },
+    {
+      "type": "SOCIAL_ENGAGEMENT",
+      "value": 1250.0,
+      "quality": 0.9,
+      "confidence": 0.9,
+      "date": "2025-02-21T20:41:34.311240"
+    },
+    {
+      "type": "WEB_TRAFFIC",
+      "value": 2600.0,
+      "quality": 0.95,
+      "confidence": 0.95,
+      "date": "2025-02-20T20:41:34.311240"
+    },
+    {
+      "type": "SOCIAL_ENGAGEMENT",
+      "value": 1300.0,
+      "quality": 0.9,
+      "confidence": 0.9,
+      "date": "2025-02-20T20:41:34.311240"
+    },
+    {
+      "type": "WEB_TRAFFIC",
+      "value": 2700.0,
+      "quality": 0.95,
+      "confidence": 0.95,
+      "date": "2025-02-19T20:41:34.311240"
+    },
+    {
+      "type": "SOCIAL_ENGAGEMENT",
+      "value": 1350.0,
+      "quality": 0.9,
+      "confidence": 0.9,
+      "date": "2025-02-19T20:41:34.311240"
+    },
+    {
+      "type": "WEB_TRAFFIC",
+      "value": 2800.0,
+      "quality": 0.95,
+      "confidence": 0.95,
+      "date": "2025-02-18T20:41:34.311240"
+    },
+    {
+      "type": "SOCIAL_ENGAGEMENT",
+      "value": 1400.0,
+      "quality": 0.9,
+      "confidence": 0.9,
+      "date": "2025-02-18T20:41:34.311240"
+    },
+    {
+      "type": "WEB_TRAFFIC",
+      "value": 2900.0,
+      "quality": 0.95,
+      "confidence": 0.95,
+      "date": "2025-02-17T20:41:34.311240"
+    },
+    {
+      "type": "SOCIAL_ENGAGEMENT",
+      "value": 1450.0,
+      "quality": 0.9,
+      "confidence": 0.9,
+      "date": "2025-02-17T20:41:34.311240"
+    },
+    {
+      "type": "WEB_TRAFFIC",
+      "value": 3000.0,
+      "quality": 0.95,
+      "confidence": 0.95,
+      "date": "2025-02-16T20:41:34.311240"
+    },
+    {
+      "type": "SOCIAL_ENGAGEMENT",
+      "value": 1500.0,
+      "quality": 0.9,
+      "confidence": 0.9,
+      "date": "2025-02-16T20:41:34.311240"
+    },
+    {
+      "type": "WEB_TRAFFIC",
+      "value": 3100.0,
+      "quality": 0.95,
+      "confidence": 0.95,
+      "date": "2025-02-15T20:41:34.311240"
+    },
+    {
+      "type": "SOCIAL_ENGAGEMENT",
+      "value": 1550.0,
+      "quality": 0.9,
+      "confidence": 0.9,
+      "date": "2025-02-15T20:41:34.311240"
+    },
+    {
+      "type": "WEB_TRAFFIC",
+      "value": 3200.0,
+      "quality": 0.95,
+      "confidence": 0.95,
+      "date": "2025-02-14T20:41:34.311240"
+    },
+    {
+      "type": "SOCIAL_ENGAGEMENT",
+      "value": 1600.0,
+      "quality": 0.9,
+      "confidence": 0.9,
+      "date": "2025-02-14T20:41:34.311240"
+    },
+    {
+      "type": "WEB_TRAFFIC",
+      "value": 3300.0,
+      "quality": 0.95,
+      "confidence": 0.95,
+      "date": "2025-02-13T20:41:34.311240"
+    },
+    {
+      "type": "SOCIAL_ENGAGEMENT",
+      "value": 1650.0,
+      "quality": 0.9,
+      "confidence": 0.9,
+      "date": "2025-02-13T20:41:34.311240"
+    },
+    {
+      "type": "WEB_TRAFFIC",
+      "value": 3400.0,
+      "quality": 0.95,
+      "confidence": 0.95,
+      "date": "2025-02-12T20:41:34.311240"
+    },
+    {
+      "type": "SOCIAL_ENGAGEMENT",
+      "value": 1700.0,
+      "quality": 0.9,
+      "confidence": 0.9,
+      "date": "2025-02-12T20:41:34.311240"
+    },
+    {
+      "type": "WEB_TRAFFIC",
+      "value": 3500.0,
+      "quality": 0.95,
+      "confidence": 0.95,
+      "date": "2025-02-11T20:41:34.311240"
+    },
+    {
+      "type": "SOCIAL_ENGAGEMENT",
+      "value": 1750.0,
+      "quality": 0.9,
+      "confidence": 0.9,
+      "date": "2025-02-11T20:41:34.311240"
+    },
+    {
+      "type": "WEB_TRAFFIC",
+      "value": 3600.0,
+      "quality": 0.95,
+      "confidence": 0.95,
+      "date": "2025-02-10T20:41:34.311240"
+    },
+    {
+      "type": "SOCIAL_ENGAGEMENT",
+      "value": 1800.0,
+      "quality": 0.9,
+      "confidence": 0.9,
+      "date": "2025-02-10T20:41:34.311240"
+    },
+    {
+      "type": "WEB_TRAFFIC",
+      "value": 3700.0,
+      "quality": 0.95,
+      "confidence": 0.95,
+      "date": "2025-02-09T20:41:34.311240"
+    },
+    {
+      "type": "SOCIAL_ENGAGEMENT",
+      "value": 1850.0,
+      "quality": 0.9,
+      "confidence": 0.9,
+      "date": "2025-02-09T20:41:34.311240"
+    },
+    {
+      "type": "WEB_TRAFFIC",
+      "value": 3800.0,
+      "quality": 0.95,
+      "confidence": 0.95,
+      "date": "2025-02-08T20:41:34.311240"
+    },
+    {
+      "type": "SOCIAL_ENGAGEMENT",
+      "value": 1900.0,
+      "quality": 0.9,
+      "confidence": 0.9,
+      "date": "2025-02-08T20:41:34.311240"
+    },
+    {
+      "type": "WEB_TRAFFIC",
+      "value": 3900.0,
+      "quality": 0.95,
+      "confidence": 0.95,
+      "date": "2025-02-07T20:41:34.311240"
+    },
+    {
+      "type": "SOCIAL_ENGAGEMENT",
+      "value": 1950.0,
+      "quality": 0.9,
+      "confidence": 0.9,
+      "date": "2025-02-07T20:41:34.311240"
+    }
+  ],
+  "insights": {
+    "competitor_analysis": {
+      "insights": {
+        "trends": "Market share trends show steady growth for JLL in commercial real estate services.",
+        "opportunities": "Expansion opportunities in emerging markets and proptech integration.",
+        "threats": "Increasing competition from technology-driven real estate platforms.",
+        "recommendations": "Strengthen digital transformation initiatives and focus on sustainability services."
+      },
+      "confidence_score": 0.92,
+      "data_quality_score": 0.88
+    },
+    "market_analysis": {
+      "insights": {
+        "sector_growth": "Commercial real estate services sector shows 5.2% annual growth.",
+        "key_trends": "Increasing demand for integrated facility management and ESG compliance services.",
+        "market_dynamics": "Global market driven by corporate outsourcing and technology integration.",
+        "predictions": "Expected 15% growth in demand for sustainability consulting over next 3 years."
+      },
+      "confidence_score": 0.89,
+      "data_quality_score": 0.85
+    },
+    "audience_analysis": {
+      "insights": {
+        "demographics": "Primary audience includes corporate real estate decision-makers (58%) and facility managers (22%).",
+        "engagement": "Highest engagement with sustainability content (43% higher than average).",
+        "persona": "Key decision-maker persona is typically a senior executive with 15+ years experience.",
+        "recommendations": "Focus content strategy on ROI case studies and sustainability benchmarking."
+      },
+      "confidence_score": 0.9,
+      "data_quality_score": 0.87
+    }
+  }
+}

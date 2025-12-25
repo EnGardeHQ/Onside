@@ -1,0 +1,335 @@
+{
+  "campaign_name": "Brand Analysis - Acme Marketing Tools",
+  "platform": "onside_analysis",
+  "import_source": "onside_brand_analysis",
+  "description": "Automated brand digital footprint analysis for Acme Marketing Tools. Discovered 5 keywords, 4 competitors, and 3 content opportunities.",
+  "campaign_objective": "Brand digital footprint analysis and SEO strategy",
+  "target_audience": [
+    "United States",
+    "Canada",
+    "SMB businesses"
+  ],
+  "is_active": false,
+  "tags": [
+    "onside_analysis",
+    "brand_audit",
+    "seo_research",
+    "saas_marketing_tools"
+  ],
+  "category": "brand_analysis",
+  "import_metadata": {
+    "onside_job_id": "550e8400-e29b-41d4-a716-446655440000",
+    "analysis_date": "2025-12-24T10:45:30.123456",
+    "brand_name": "Acme Marketing Tools",
+    "brand_website": "https://www.acmemarketing.com",
+    "industry": "SaaS Marketing Tools",
+    "questionnaire": {
+      "brand_name": "Acme Marketing Tools",
+      "primary_website": "https://www.acmemarketing.com",
+      "industry": "SaaS Marketing Tools",
+      "target_markets": [
+        "United States",
+        "Canada",
+        "SMB businesses"
+      ],
+      "products_services": [
+        "Email Marketing Platform",
+        "Social Media Scheduler",
+        "Analytics Dashboard"
+      ],
+      "known_competitors": [
+        "mailchimp.com",
+        "hubspot.com"
+      ],
+      "target_keywords": [
+        "email marketing",
+        "marketing automation"
+      ]
+    },
+    "total_keywords": 5,
+    "total_competitors": 4,
+    "total_opportunities": 3
+  },
+  "keywords": [
+    {
+      "keyword_text": "email marketing automation",
+      "search_volume": 12000,
+      "competition_score": 65.5,
+      "cpc_estimate": "4.25",
+      "current_position": null,
+      "target_position": 3,
+      "priority_level": "high",
+      "category": "nlp_extraction",
+      "intent_type": "commercial",
+      "metadata": {
+        "onside_id": 123,
+        "relevance_score": 0.87,
+        "serp_features": null,
+        "confirmed": true,
+        "transformation_date": "2025-12-24T10:45:35.000000"
+      },
+      "source": "onside_analysis",
+      "created_at": "2025-12-24T10:45:35.000000",
+      "updated_at": "2025-12-24T10:45:35.000000"
+    },
+    {
+      "keyword_text": "marketing automation software",
+      "search_volume": 8500,
+      "competition_score": 72.3,
+      "cpc_estimate": "5.80",
+      "current_position": 15,
+      "target_position": 10,
+      "priority_level": "high",
+      "category": "website_content",
+      "intent_type": "commercial",
+      "metadata": {
+        "onside_id": 124,
+        "relevance_score": 0.82,
+        "serp_features": null,
+        "confirmed": true,
+        "transformation_date": "2025-12-24T10:45:35.000000"
+      },
+      "source": "onside_analysis",
+      "created_at": "2025-12-24T10:45:35.000000",
+      "updated_at": "2025-12-24T10:45:35.000000"
+    },
+    {
+      "keyword_text": "crm email marketing",
+      "search_volume": 5200,
+      "competition_score": 58.1,
+      "cpc_estimate": "3.45",
+      "current_position": null,
+      "target_position": 3,
+      "priority_level": "high",
+      "category": "serp_analysis",
+      "intent_type": "commercial",
+      "metadata": {
+        "onside_id": 125,
+        "relevance_score": 0.75,
+        "serp_features": null,
+        "confirmed": true,
+        "transformation_date": "2025-12-24T10:45:35.000000"
+      },
+      "source": "onside_analysis",
+      "created_at": "2025-12-24T10:45:35.000000",
+      "updated_at": "2025-12-24T10:45:35.000000"
+    },
+    {
+      "keyword_text": "email campaign tools",
+      "search_volume": 3400,
+      "competition_score": 45.2,
+      "cpc_estimate": "2.10",
+      "current_position": null,
+      "target_position": 3,
+      "priority_level": "medium",
+      "category": "nlp_extraction",
+      "intent_type": "commercial",
+      "metadata": {
+        "onside_id": 126,
+        "relevance_score": 0.68,
+        "serp_features": null,
+        "confirmed": false,
+        "transformation_date": "2025-12-24T10:45:35.000000"
+      },
+      "source": "onside_analysis",
+      "created_at": "2025-12-24T10:45:35.000000",
+      "updated_at": "2025-12-24T10:45:35.000000"
+    },
+    {
+      "keyword_text": "automated email sequences",
+      "search_volume": 2800,
+      "competition_score": 52.7,
+      "cpc_estimate": "2.85",
+      "current_position": null,
+      "target_position": 3,
+      "priority_level": "medium",
+      "category": "website_content",
+      "intent_type": "informational",
+      "metadata": {
+        "onside_id": 127,
+        "relevance_score": 0.71,
+        "serp_features": null,
+        "confirmed": false,
+        "transformation_date": "2025-12-24T10:45:35.000000"
+      },
+      "source": "onside_analysis",
+      "created_at": "2025-12-24T10:45:35.000000",
+      "updated_at": "2025-12-24T10:45:35.000000"
+    }
+  ],
+  "competitors": [
+    {
+      "competitor_name": "Mailchimp",
+      "domain": "mailchimp.com",
+      "competitor_type": "direct",
+      "market_share": null,
+      "strength_score": 92.0,
+      "keyword_overlap_count": null,
+      "shared_keywords": null,
+      "competitive_advantages": null,
+      "weaknesses": null,
+      "monitoring_enabled": true,
+      "metadata": {
+        "onside_id": 201,
+        "relevance_score": 0.92,
+        "category": "primary",
+        "overlap_percentage": 78.5,
+        "keyword_overlap": null,
+        "content_similarity": null,
+        "confirmed": true,
+        "transformation_date": "2025-12-24T10:45:35.000000"
+      },
+      "source": "onside_analysis",
+      "created_at": "2025-12-24T10:45:35.000000",
+      "updated_at": "2025-12-24T10:45:35.000000"
+    },
+    {
+      "competitor_name": "HubSpot",
+      "domain": "hubspot.com",
+      "competitor_type": "direct",
+      "market_share": null,
+      "strength_score": 88.0,
+      "keyword_overlap_count": null,
+      "shared_keywords": null,
+      "competitive_advantages": null,
+      "weaknesses": null,
+      "monitoring_enabled": true,
+      "metadata": {
+        "onside_id": 202,
+        "relevance_score": 0.88,
+        "category": "primary",
+        "overlap_percentage": 65.2,
+        "keyword_overlap": null,
+        "content_similarity": null,
+        "confirmed": true,
+        "transformation_date": "2025-12-24T10:45:35.000000"
+      },
+      "source": "onside_analysis",
+      "created_at": "2025-12-24T10:45:35.000000",
+      "updated_at": "2025-12-24T10:45:35.000000"
+    },
+    {
+      "competitor_name": "ActiveCampaign",
+      "domain": "activecampaign.com",
+      "competitor_type": "indirect",
+      "market_share": null,
+      "strength_score": 75.0,
+      "keyword_overlap_count": null,
+      "shared_keywords": null,
+      "competitive_advantages": null,
+      "weaknesses": null,
+      "monitoring_enabled": true,
+      "metadata": {
+        "onside_id": 203,
+        "relevance_score": 0.75,
+        "category": "secondary",
+        "overlap_percentage": 45.8,
+        "keyword_overlap": null,
+        "content_similarity": null,
+        "confirmed": false,
+        "transformation_date": "2025-12-24T10:45:35.000000"
+      },
+      "source": "onside_analysis",
+      "created_at": "2025-12-24T10:45:35.000000",
+      "updated_at": "2025-12-24T10:45:35.000000"
+    },
+    {
+      "competitor_name": "Sendinblue",
+      "domain": "sendinblue.com",
+      "competitor_type": "indirect",
+      "market_share": null,
+      "strength_score": 68.0,
+      "keyword_overlap_count": null,
+      "shared_keywords": null,
+      "competitive_advantages": null,
+      "weaknesses": null,
+      "monitoring_enabled": true,
+      "metadata": {
+        "onside_id": 204,
+        "relevance_score": 0.68,
+        "category": "secondary",
+        "overlap_percentage": 38.3,
+        "keyword_overlap": null,
+        "content_similarity": null,
+        "confirmed": false,
+        "transformation_date": "2025-12-24T10:45:35.000000"
+      },
+      "source": "onside_analysis",
+      "created_at": "2025-12-24T10:45:35.000000",
+      "updated_at": "2025-12-24T10:45:35.000000"
+    }
+  ],
+  "content_opportunities": [
+    {
+      "title": "Email segmentation best practices",
+      "description": null,
+      "content_type": "guide",
+      "priority": "high",
+      "estimated_traffic": 5000,
+      "difficulty_score": 45.0,
+      "target_keywords": null,
+      "target_audience": null,
+      "content_gap": "missing_content",
+      "competitor_coverage": null,
+      "status": "idea",
+      "metadata": {
+        "onside_id": 301,
+        "topic": "Email segmentation best practices",
+        "gap_type": "missing_content",
+        "recommended_format": "guide",
+        "transformation_date": "2025-12-24T10:45:35.000000"
+      },
+      "source": "onside_analysis",
+      "created_at": "2025-12-24T10:45:35.000000",
+      "updated_at": "2025-12-24T10:45:35.000000"
+    },
+    {
+      "title": "Marketing automation ROI calculator",
+      "description": null,
+      "content_type": "blog_post",
+      "priority": "high",
+      "estimated_traffic": 3200,
+      "difficulty_score": 38.5,
+      "target_keywords": null,
+      "target_audience": null,
+      "content_gap": "missing_content",
+      "competitor_coverage": null,
+      "status": "idea",
+      "metadata": {
+        "onside_id": 302,
+        "topic": "Marketing automation ROI calculator",
+        "gap_type": "missing_content",
+        "recommended_format": "blog_post",
+        "transformation_date": "2025-12-24T10:45:35.000000"
+      },
+      "source": "onside_analysis",
+      "created_at": "2025-12-24T10:45:35.000000",
+      "updated_at": "2025-12-24T10:45:35.000000"
+    },
+    {
+      "title": "Email deliverability checklist",
+      "description": null,
+      "content_type": "infographic",
+      "priority": "medium",
+      "estimated_traffic": 1800,
+      "difficulty_score": 52.1,
+      "target_keywords": null,
+      "target_audience": null,
+      "content_gap": "weak_content",
+      "competitor_coverage": null,
+      "status": "idea",
+      "metadata": {
+        "onside_id": 303,
+        "topic": "Email deliverability checklist",
+        "gap_type": "weak_content",
+        "recommended_format": "infographic",
+        "transformation_date": "2025-12-24T10:45:35.000000"
+      },
+      "source": "onside_analysis",
+      "created_at": "2025-12-24T10:45:35.000000",
+      "updated_at": "2025-12-24T10:45:35.000000"
+    }
+  ],
+  "currency": "USD",
+  "budget": null
+}

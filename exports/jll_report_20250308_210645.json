@@ -1,0 +1,4 @@
+{
+  "error": "LinkSearchService.__init__() got an unexpected keyword argument 'session'",
+  "traceback": "Traceback (most recent call last):\n  File \"/Users/tobymorning/OnSide/complete_jll_report.py\", line 209, in generate_report\n    await self.setup_services()\n  File \"/Users/tobymorning/OnSide/complete_jll_report.py\", line 156, in setup_services\n    self.link_search = LinkSearchService(session=self.db_session)\n                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nTypeError: LinkSearchService.__init__() got an unexpected keyword argument 'session'\n"
+}

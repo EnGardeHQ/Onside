@@ -1,0 +1,4 @@
+{
+  "error": "CompetitorAnalysisService.__init__() got an unexpected keyword argument 'metrics_repository'",
+  "traceback": "Traceback (most recent call last):\n  File \"/Users/tobymorning/OnSide/complete_jll_report.py\", line 244, in generate_report\n    await self.setup_services()\n  File \"/Users/tobymorning/OnSide/complete_jll_report.py\", line 193, in setup_services\n    self.competitor_analysis = CompetitorAnalysisService(\n                               ^^^^^^^^^^^^^^^^^^^^^^^^^^\nTypeError: CompetitorAnalysisService.__init__() got an unexpected keyword argument 'metrics_repository'\n"
+}

@@ -1,0 +1,213 @@
+version: "3.8"
+
+services:
+  # FastAPI Application
+  onside-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    container_name: onside-api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:onside-dev-password@onside-db:5432/onside
+      - REDIS_URL=redis://onside-redis:6379/0
+      - MINIO_ENDPOINT=onside-minio:9000
+      - MINIO_ACCESS_KEY=minio-access-key
+      - MINIO_SECRET_KEY=minio-secret-key
+      - SECRET_KEY=dev-secret-key-change-in-production
+      - ALGORITHM=HS256
+      - ACCESS_TOKEN_EXPIRE_MINUTES=30
+      - APP_ENV=development
+      - ALLOWED_ORIGINS=http://localhost:3000,http://localhost:3001
+    volumes:
+      - ./src:/app/src:ro
+      - ./alembic:/app/alembic
+      - ./logs:/app/logs
+      - ./exports:/app/exports
+    depends_on:
+      onside-db:
+        condition: service_healthy
+      onside-redis:
+        condition: service_healthy
+    networks:
+      - onside-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # PostgreSQL Database
+  onside-db:
+    image: postgres:15-alpine
+    container_name: onside-db
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=onside-dev-password
+      - POSTGRES_DB=onside
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - onside-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d onside"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  # Redis Cache - Optimized for caching and rate limiting
+  onside-redis:
+    image: redis:7-alpine
+    container_name: onside-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf:ro
+    networks:
+      - onside-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    environment:
+      - REDIS_MAXMEMORY=512mb
+      - REDIS_MAXMEMORY_POLICY=allkeys-lru
+    command: >
+      redis-server
+      --appendonly yes
+      --maxmemory 512mb
+      --maxmemory-policy allkeys-lru
+      --maxmemory-samples 5
+      --save 900 1
+      --save 300 10
+      --save 60 10000
+      --tcp-backlog 511
+      --timeout 300
+      --tcp-keepalive 60
+      --loglevel notice
+
+  # MinIO Object Storage
+  onside-minio:
+    image: minio/minio:latest
+    container_name: onside-minio
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      - MINIO_ROOT_USER=minio-access-key
+      - MINIO_ROOT_PASSWORD=minio-secret-key
+    volumes:
+      - minio-data:/data
+    networks:
+      - onside-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    command: server /data --console-address ":9001"
+
+  # Celery Worker
+  onside-celery-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    container_name: onside-celery-worker
+    restart: unless-stopped
+    command: celery -A src.celery_app worker --loglevel=info --concurrency=4 -Q default,reports,scraping,analytics,emails,data_ingestion
+    environment:
+      - DATABASE_URL=postgresql://postgres:onside-dev-password@onside-db:5432/onside
+      - REDIS_URL=redis://onside-redis:6379/0
+      - CELERY_BROKER_URL=redis://onside-redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://onside-redis:6379/0
+      - MINIO_ENDPOINT=onside-minio:9000
+      - MINIO_ACCESS_KEY=minio-access-key
+      - MINIO_SECRET_KEY=minio-secret-key
+      - APP_ENV=development
+    volumes:
+      - ./src:/app/src:ro
+      - ./logs:/app/logs
+    depends_on:
+      onside-db:
+        condition: service_healthy
+      onside-redis:
+        condition: service_healthy
+    networks:
+      - onside-network
+
+  # Celery Beat (Scheduler)
+  onside-celery-beat:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    container_name: onside-celery-beat
+    restart: unless-stopped
+    command: celery -A src.celery_app beat --loglevel=info
+    environment:
+      - DATABASE_URL=postgresql://postgres:onside-dev-password@onside-db:5432/onside
+      - REDIS_URL=redis://onside-redis:6379/0
+      - CELERY_BROKER_URL=redis://onside-redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://onside-redis:6379/0
+      - APP_ENV=development
+    volumes:
+      - ./src:/app/src:ro
+      - ./logs:/app/logs
+    depends_on:
+      onside-db:
+        condition: service_healthy
+      onside-redis:
+        condition: service_healthy
+    networks:
+      - onside-network
+
+  # Flower (Celery Monitoring)
+  onside-flower:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    container_name: onside-flower
+    restart: unless-stopped
+    command: celery -A src.celery_app flower --port=5555
+    ports:
+      - "5555:5555"
+    environment:
+      - CELERY_BROKER_URL=redis://onside-redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://onside-redis:6379/0
+      - FLOWER_BASIC_AUTH=admin:admin
+    volumes:
+      - ./src:/app/src:ro
+    depends_on:
+      onside-redis:
+        condition: service_healthy
+    networks:
+      - onside-network
+
+networks:
+  onside-network:
+    driver: bridge
+    name: onside-network
+
+volumes:
+  postgres-data:
+    name: onside-postgres-data
+  redis-data:
+    name: onside-redis-data
+  minio-data:
+    name: onside-minio-data

@@ -1,0 +1,55 @@
+# Test-specific requirements for Onside En Garde integration
+
+# Core testing framework
+pytest==8.3.4
+pytest-asyncio==0.25.3
+pytest-cov==6.1.1
+pytest-mock==3.14.0
+pytest-timeout==2.3.1
+pytest-xdist==3.6.1  # Parallel test execution
+
+# HTTP testing
+httpx==0.28.1
+respx==0.21.1  # Mock HTTPX requests
+
+# Async testing
+aiohttp>=3.11.11
+aiosqlite==0.21.0
+asynctest==0.13.0
+
+# Database testing
+sqlalchemy==2.0.23
+alembic==1.12.1
+psycopg2-binary==2.9.10
+
+# Mock and fixtures
+factory-boy==3.3.1
+faker==33.1.0
+responses==0.25.3  # Mock HTTP responses
+freezegun==1.5.1  # Time mocking
+
+# WebSocket testing
+websockets==14.1
+pytest-websocket==0.0.13
+
+# Rate limiting and retries
+backoff==2.2.1
+ratelimit==2.2.1
+
+# Coverage reporting
+coverage[toml]==7.6.10
+coverage-badge==1.1.2
+
+# Code quality
+black==24.11.0
+flake8==7.1.1
+mypy==1.13.0
+pylint==3.3.4
+
+# Performance testing
+pytest-benchmark==5.1.0
+locust==2.32.4
+
+# Mocking utilities
+unittest-xml-reporting==3.2.0
+testfixtures==8.3.0

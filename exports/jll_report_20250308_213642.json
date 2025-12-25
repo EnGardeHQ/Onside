@@ -1,0 +1,140 @@
+{
+  "id": null,
+  "title": "JLL Competitive Analysis Report",
+  "company": {
+    "id": 2,
+    "name": "Jones Lang LaSalle (JLL)",
+    "description": "Global commercial real estate services company specializing in property services, facility management, and investment management.",
+    "industry": "Real Estate Services",
+    "domain": "jll.com"
+  },
+  "generated_at": "2025-03-09T05:36:42.586297",
+  "web_scraping_data": {
+    "target_company": {
+      "links": [
+        {
+          "url": "https://jll.com/about",
+          "title": "About Us"
+        },
+        {
+          "url": "https://jll.com/services",
+          "title": "Services"
+        }
+      ],
+      "content": {
+        "url": "jll.com",
+        "error": "(sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: relation \"scraping_results\" does not exist\n[SQL: SELECT * FROM scraping_results WHERE domain = $1 ORDER BY created_at DESC LIMIT 1]\n[parameters: ('jll.com',)]\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+        "timestamp": "2025-03-09T05:36:42.576801"
+      },
+      "engagement": {
+        "pageviews": 12500,
+        "unique_visitors": 8700,
+        "bounce_rate": 0.45,
+        "avg_time_on_page": 120,
+        "data_quality_score": 0.75
+      }
+    },
+    "competitors": {}
+  },
+  "competitors": [],
+  "metrics": {
+    "WEB_TRAFFIC": {
+      "value": 3900.0,
+      "data_quality_score": 0.95,
+      "confidence_score": 0.95,
+      "date": "2025-02-07T20:41:34.311240"
+    },
+    "SOCIAL_ENGAGEMENT": {
+      "value": 1950.0,
+      "data_quality_score": 0.9,
+      "confidence_score": 0.9,
+      "date": "2025-02-07T20:41:34.311240"
+    }
+  },
+  "insights": {
+    "competitor": {
+      "insights": {
+        "trends": "Market share trends show steady growth for this company in commercial real estate services.",
+        "strengths": "Strong brand recognition and global presence are key advantages.",
+        "weaknesses": "Digital transformation initiatives lag behind some competitors.",
+        "opportunities": "Expansion into emerging markets and technology integration present growth opportunities.",
+        "threats": "Local specialized competitors are gaining market share in specific regions.",
+        "recommendations": "Invest in proptech innovations and sustainability solutions to maintain competitive edge."
+      },
+      "chain_of_thought": {
+        "reasoning": [
+          "Analyzed market positioning based on competitor data",
+          "Evaluated digital presence compared to industry benchmarks",
+          "Considered historical performance trends in the sector",
+          "Identified key differentiation factors"
+        ],
+        "confidence_score": 0.87,
+        "data_quality_score": 0.82
+      }
+    },
+    "market": {
+      "insights": {
+        "market_size": "$235 billion global commercial real estate services market",
+        "growth_rate": "4.8% CAGR projected over next 5 years",
+        "key_trends": [
+          "Increasing demand for sustainable building solutions",
+          "Technology integration across property management",
+          "Flexible workspace adoption accelerating post-pandemic"
+        ],
+        "market_position": "Top-tier market leader with 15% market share in primary segments"
+      },
+      "chain_of_thought": {
+        "reasoning": [
+          "Analyzed historical market data from 2018-present",
+          "Applied regression model to identify growth patterns",
+          "Compared performance against sector benchmarks",
+          "Evaluated impact of economic indicators on market performance"
+        ],
+        "confidence_score": 0.85,
+        "data_quality_score": 0.79
+      }
+    },
+    "audience": {
+      "insights": {
+        "primary_segments": [
+          "Corporate real estate directors (35%)",
+          "Property investment firms (28%)",
+          "Facility managers (22%)",
+          "Commercial property owners (15%)"
+        ],
+        "engagement_patterns": "Highest engagement with market research reports and sustainability content",
+        "key_personas": [
+          {
+            "name": "Enterprise CRE Director",
+            "needs": "Strategic portfolio optimization and cost reduction",
+            "challenges": "Managing global real estate assets while implementing ESG initiatives"
+          },
+          {
+            "name": "Investment Portfolio Manager",
+            "needs": "Market intelligence and yield optimization",
+            "challenges": "Identifying growth opportunities in volatile markets"
+          }
+        ]
+      },
+      "chain_of_thought": {
+        "reasoning": [
+          "Analyzed client engagement data across digital properties",
+          "Identified behavioral patterns in content consumption",
+          "Segmented audience based on interaction history",
+          "Applied clustering algorithm to create distinctive personas"
+        ],
+        "confidence_score": 0.81,
+        "data_quality_score": 0.76
+      }
+    }
+  },
+  "metadata": {
+    "generation_time_seconds": 0.0468,
+    "data_sources": [
+      "database",
+      "web_scraping",
+      "ai_analysis"
+    ]
+  },
+  "pdf_path": "jll_report_20250308_213642.json"
+}
