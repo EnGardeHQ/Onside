@@ -19,7 +19,7 @@ from playwright.async_api import async_playwright, Page, Browser
 from sqlalchemy.orm import Session
 
 from src.models.scraped_content import ScrapedContent, ContentChange
-from src.services.storage_service import StorageService
+from src.services.storage_service import get_storage_service, StorageService
 
 logger = logging.getLogger(__name__)
 
@@ -42,7 +42,7 @@ class WebScrapingService:
         Args:
             storage_service: Storage service for saving screenshots
         """
-        self.storage_service = storage_service or StorageService()
+        self.storage_service = storage_service or get_storage_service()
         self.browser: Optional[Browser] = None
 
     async def _ensure_browser(self):

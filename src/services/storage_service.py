@@ -394,5 +394,26 @@ class StorageService:
             raise
 
 
-# Create a singleton instance
-storage_service = StorageService()
+# Lazy-load singleton instance to avoid connecting to MinIO at import time
+_storage_service: Optional[StorageService] = None
+
+
+def get_storage_service() -> StorageService:
+    """
+    Get or create the singleton StorageService instance.
+    
+    This lazy-loads the service to avoid connecting to MinIO during module import,
+    which would cause startup failures if MinIO is not available.
+    """
+    global _storage_service
+    if _storage_service is None:
+        _storage_service = StorageService()
+    return _storage_service
+
+
+# For backward compatibility
+def __getattr__(name):
+    """Allow module-level access to storage_service for backward compatibility."""
+    if name == "storage_service":
+        return get_storage_service()
+    raise AttributeError(f"module '{__name__}' has no attribute '{name}'")
