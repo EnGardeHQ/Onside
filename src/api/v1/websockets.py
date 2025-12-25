@@ -56,7 +56,7 @@ class ConnectionManager:
         self.connection_jobs: Dict[WebSocket, str] = {}
 
         # websocket -> user_id mapping for auth
-        self.connection_users: Dict[WebSocket, int] = {}
+        self.connection_users: Dict[WebSocket, str] = {}
 
         # Connection metadata
         self.connection_metadata: Dict[WebSocket, Dict[str, Any]] = {}
@@ -68,7 +68,7 @@ class ConnectionManager:
         self,
         websocket: WebSocket,
         job_id: str,
-        user_id: int
+        user_id: str
     ):
         """
         Accept and register a new WebSocket connection.

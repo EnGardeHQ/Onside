@@ -48,14 +48,15 @@ async def get_current_user(
     try:
         # Decode JWT token
         payload = jwt.decode(token, "your-secret-key", algorithms=["HS256"])
-        user_id: int = payload.get("sub")
+        user_id: str = payload.get("sub")
         if user_id is None:
             raise credentials_exception
     except jwt.PyJWTError:
         raise credentials_exception
         
-    # Get user from database
-    result = await db.execute(f"SELECT * FROM users WHERE id = {user_id}")
+    # Get user from database using parameterized query
+    from sqlalchemy import text
+    result = await db.execute(text("SELECT * FROM users WHERE id = :user_id"), {"user_id": user_id})
     user = result.scalar_one_or_none()
     
     if user is None:

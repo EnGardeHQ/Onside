@@ -25,11 +25,11 @@ logger = logging.getLogger(__name__)
 class GoogleAnalyticsClient:
     """Client for interacting with Google Analytics API."""
     
-    def __init__(self, user_id: int, property_id: str):
+    def __init__(self, user_id: str, property_id: str):
         """Initialize the Google Analytics client.
         
         Args:
-            user_id: The ID of the user
+            user_id: The UUID of the user
             property_id: The Google Analytics 4 property ID (format: properties/XXXXXX)
         """
         self.user_id = user_id

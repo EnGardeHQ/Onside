@@ -55,7 +55,7 @@ class ErrorReport:
         message: str,
         details: Optional[Dict[str, Any]] = None,
         exception: Optional[Exception] = None,
-        user_id: Optional[int] = None,
+        user_id: Optional[str] = None,
         endpoint: Optional[str] = None,
         request_id: Optional[str] = None,
         timestamp: Optional[datetime] = None
@@ -194,7 +194,7 @@ class ErrorReportingService:
         category: ErrorCategory = ErrorCategory.UNKNOWN,
         details: Optional[Dict[str, Any]] = None,
         exception: Optional[Exception] = None,
-        user_id: Optional[int] = None,
+        user_id: Optional[str] = None,
         endpoint: Optional[str] = None,
         request_id: Optional[str] = None,
         format_args: Optional[Dict[str, Any]] = None

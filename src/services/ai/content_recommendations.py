@@ -129,10 +129,10 @@ class ContentRecommendationService:
                     ))
             return similarities
 
-    async def get_personalized_recommendations(self, user_id: int) -> List[RecommendationScore]:
+    async def get_personalized_recommendations(self, user_id: str) -> List[RecommendationScore]:
         """Get personalized recommendations for a user."""
-        if user_id < 0:
-            raise ValueError("User ID must be positive")
+        if not user_id:
+            raise ValueError("User ID must not be empty")
             
         async with get_db_session() as session:
             result = await session.execute(select(Content))
@@ -170,10 +170,10 @@ class ContentRecommendationService:
                     ))
             return recommendations
 
-    async def get_recommendations_by_type(self, user_id: int, recommendation_type: RecommendationType) -> List[RecommendationScore]:
+    async def get_recommendations_by_type(self, user_id: str, recommendation_type: RecommendationType) -> List[RecommendationScore]:
         """Get recommendations by specific type."""
-        if user_id < 0:
-            raise ValueError("User ID must be positive")
+        if not user_id:
+            raise ValueError("User ID must not be empty")
             
         async with get_db_session() as session:
             result = await session.execute(select(Content))

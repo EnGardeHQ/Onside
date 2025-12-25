@@ -48,6 +48,7 @@ class CompetitorMetrics(Base):
     - Time-series data handling
     """
     __tablename__ = "competitor_metrics"
+    __table_args__ = {"extend_existing": True}
 
     # Primary fields
     id: Mapped[int] = mapped_column(primary_key=True)

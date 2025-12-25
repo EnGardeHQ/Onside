@@ -504,7 +504,7 @@ def sanitize_input(text: str, allow_html: bool = False) -> str:
 # ============================================================================
 
 async def check_rate_limit(
-    user_id: int,
+    user_id: str,
     db: Session,
     max_requests: int = MAX_ANALYSES_PER_HOUR,
     window_seconds: int = RATE_LIMIT_WINDOW

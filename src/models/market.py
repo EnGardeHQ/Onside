@@ -25,6 +25,7 @@ content_segments = Table(
 class MarketTag(Base):
     """Model for market categorization tags"""
     __tablename__ = 'market_tags'
+    __table_args__ = {'extend_existing': True}
 
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False, unique=True)
@@ -37,6 +38,7 @@ class MarketTag(Base):
 class MarketSegment(Base):
     """Model for market segmentation"""
     __tablename__ = 'market_segments'
+    __table_args__ = {'extend_existing': True}
 
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False, unique=True)
@@ -53,6 +55,7 @@ class MarketSegment(Base):
 class Competitor(Base):
     """Model for tracking competitors"""
     __tablename__ = 'competitors'
+    __table_args__ = {'extend_existing': True}
 
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
@@ -69,8 +72,9 @@ class Competitor(Base):
     performance_metrics = relationship("CompetitorMetrics", back_populates="competitor", cascade="all, delete-orphan")
 
 class CompetitorContent(Base):
-    """Model for tracking competitor content"""
+    """Model for tracking competitor competitor content"""
     __tablename__ = 'competitor_content'
+    __table_args__ = {'extend_existing': True}
 
     id = Column(Integer, primary_key=True)
     competitor_id = Column(Integer, ForeignKey('competitors.id', ondelete='CASCADE'), nullable=False)
@@ -95,6 +99,7 @@ class CompetitorContent(Base):
 class CompetitorMetrics(Base):
     """Model for tracking competitor performance metrics"""
     __tablename__ = 'competitor_metrics'
+    __table_args__ = {'extend_existing': True}
 
     id = Column(Integer, primary_key=True)
     competitor_id = Column(Integer, ForeignKey('competitors.id', ondelete='CASCADE'), nullable=False)

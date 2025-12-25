@@ -7,6 +7,7 @@ from src.database import Base
 class CompetitorContent(Base):
     """Model for storing competitor content"""
     __tablename__ = "competitor_content"
+    __table_args__ = {"extend_existing": True}
 
     id: Mapped[int] = mapped_column(primary_key=True)
     competitor_id: Mapped[int] = mapped_column(ForeignKey("competitors.id", ondelete="CASCADE"), nullable=False)

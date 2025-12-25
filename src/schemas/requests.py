@@ -65,7 +65,7 @@ class ProgressUpdateRequest(BaseModel):
     progress updates during report generation.
     """
     report_id: int = Field(..., description="ID of the report to track")
-    user_id: int = Field(..., description="ID of the user requesting updates")
+    user_id: str = Field(..., description="UUID of the user requesting updates")
     stages: Optional[List[str]] = Field(
         None,
         description="Optional list of stages to track. If None, track all stages."
@@ -713,7 +713,7 @@ class SentimentReportRequest(BaseModel):
 class CancellationRequest(BaseModel):
     """Request model for cancelling report generation."""
     report_id: int = Field(..., description="ID of the report to cancel")
-    user_id: int = Field(..., description="ID of the user requesting cancellation")
+    user_id: str = Field(..., description="UUID of the user requesting cancellation")
     reason: Optional[str] = Field(
         None,
         description="Optional reason for cancellation"

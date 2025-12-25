@@ -18,6 +18,7 @@ class InsightType(PyEnum):
 class AIInsight(Base):
     """AI insight model."""
     __tablename__ = "ai_insights"
+    __table_args__ = {'extend_existing': True}
 
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
     content_id: Mapped[int] = mapped_column(ForeignKey("contents.id"), nullable=False)

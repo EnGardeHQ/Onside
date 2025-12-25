@@ -137,11 +137,11 @@ class GoogleOAuth:
                 detail=f"Failed to refresh token: {str(e)}"
             )
     
-    async def save_token(self, user_id: int, token_data: Dict[str, Any]) -> OAuthToken:
+    async def save_token(self, user_id: str, token_data: Dict[str, Any]) -> OAuthToken:
         """Save or update OAuth token in the database.
         
         Args:
-            user_id: The user ID
+            user_id: The UUID of the user
             token_data: Token data from Google
             
         Returns:

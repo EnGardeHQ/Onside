@@ -9,7 +9,7 @@ from src.models.user import User
 class CompetitiveAnalysisService:
     async def generate_competitive_report(
         self,
-        user_id: int,
+        user_id: str,
         competitor_ids: List[int],
         metrics: List[str],
         start_date: datetime,
@@ -73,7 +73,7 @@ class CompetitiveAnalysisService:
 
     def _get_user_content(
         self,
-        user_id: int,
+        user_id: str,
         start_date: datetime,
         end_date: datetime,
         content_types: Optional[List[str]],

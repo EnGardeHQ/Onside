@@ -88,7 +88,7 @@ class ImportBatch(BaseModel):
     batch_id: str
     job_id: str
     tenant_uuid: Optional[str] = None
-    user_id: int
+    user_id: str
     status: ImportStatus
     keywords_imported: int = 0
     competitors_imported: int = 0

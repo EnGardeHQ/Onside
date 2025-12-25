@@ -91,7 +91,7 @@ def logout_user(
 
 @router.get("/users/{user_id}", response_model=Dict[str, Any])
 def get_user_profile(
-    user_id: int,
+    user_id: str,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):

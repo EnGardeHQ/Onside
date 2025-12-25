@@ -38,7 +38,7 @@ logger = logging.getLogger(__name__)
 async def progress_websocket(
     websocket: WebSocket,
     report_id: int,
-    user_id: int,
+    user_id: str,
     progress_service: ProgressService = Depends(get_progress_service)
 ):
     """WebSocket endpoint for real-time progress updates.
@@ -55,7 +55,7 @@ async def progress_websocket(
 @with_error_reporting(severity=ErrorSeverity.ERROR)
 async def start_report_generation(
     report_id: int,
-    user_id: int,
+    user_id: str,
     progress_service: ProgressService = Depends(get_progress_service),
     competitor_service: CompetitorAnalysisService = Depends(),
     market_service: MarketAnalysisService = Depends(),

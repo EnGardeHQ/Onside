@@ -19,7 +19,7 @@ class DataIngestionService:
     async def ingest_csv_data(
         self,
         file_path: str,
-        user_id: int,
+        user_id: str,
         db: AsyncSession,
         batch_size: int = 100
     ) -> List[Content]:
@@ -50,7 +50,7 @@ class DataIngestionService:
     async def ingest_json_data(
         self,
         file_path: str,
-        user_id: int,
+        user_id: str,
         db: AsyncSession
     ) -> List[Content]:
         """Ingest data from a JSON file"""
@@ -77,7 +77,7 @@ class DataIngestionService:
     async def ingest_api_data(
         self,
         api_url: str,
-        user_id: int,
+        user_id: str,
         db: AsyncSession
     ) -> List[Content]:
         """Ingest data from an external API"""
@@ -105,7 +105,7 @@ class DataIngestionService:
     def ingest_csv_data_sync(
         self,
         file_path: str,
-        user_id: int,
+        user_id: str,
         db: Session
     ) -> Dict[str, Any]:
         """Ingest data from a CSV file"""
@@ -140,7 +140,7 @@ class DataIngestionService:
     def ingest_json_data_sync(
         self,
         file_path: str,
-        user_id: int,
+        user_id: str,
         db: Session
     ) -> Dict[str, Any]:
         """Ingest data from a JSON file"""
@@ -163,7 +163,7 @@ class DataIngestionService:
     def process_data(
         self,
         data: List[Dict[str, Any]],
-        user_id: int,
+        user_id: str,
         db: Session
     ) -> Dict[str, Any]:
         """Process a list of content records"""
@@ -206,7 +206,7 @@ class DataIngestionService:
         
         return True
 
-    def transform_data(self, data: Dict[str, Any], user_id: int) -> Dict[str, Any]:
+    def transform_data(self, data: Dict[str, Any], user_id: str) -> Dict[str, Any]:
         """Transform input data to match Content model"""
         transformed = {
             'user_id': user_id,

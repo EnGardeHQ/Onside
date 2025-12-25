@@ -42,7 +42,7 @@ class ReportScheduleUpdate(BaseModel):
 class ReportScheduleResponse(ReportScheduleBase):
     """Schema for report schedule response."""
     id: int
-    user_id: int
+    user_id: str
     company_id: int
     is_active: bool
     last_run_at: Optional[datetime]

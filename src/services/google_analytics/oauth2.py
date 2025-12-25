@@ -28,11 +28,11 @@ SCOPES = [
 class GoogleAnalyticsOAuth2Client:
     """Handles OAuth2 authentication for Google Analytics API."""
     
-    def __init__(self, user_id: int, db: Optional[Session] = None):
+    def __init__(self, user_id: str, db: Optional[Session] = None):
         """Initialize the OAuth2 client.
         
         Args:
-            user_id: The ID of the user to authenticate
+            user_id: The UUID of the user to authenticate
             db: Optional database session. If not provided, a new one will be created.
         """
         self.user_id = user_id

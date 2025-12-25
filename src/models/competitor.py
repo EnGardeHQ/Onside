@@ -13,6 +13,7 @@ if TYPE_CHECKING:
 class Competitor(Base):
     """Model for tracking competitors"""
     __tablename__ = "competitors"
+    __table_args__ = {"extend_existing": True}
 
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String, nullable=False)

@@ -24,7 +24,7 @@ class SearchHistoryCreate(SearchHistoryBase):
 class SearchHistoryResponse(SearchHistoryBase):
     """Schema for search history response."""
     id: int
-    user_id: int
+    user_id: str
     company_id: Optional[int]
     ip_address: Optional[str]
     user_agent: Optional[str]

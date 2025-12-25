@@ -104,7 +104,7 @@ class ReportGeneratorService:
     
     async def create_report(
         self, 
-        user_id: int, 
+        user_id: str, 
         report_type: ReportType, 
         parameters: Dict[str, Any],
         company_id: int = None
@@ -168,7 +168,7 @@ class ReportGeneratorService:
     
     async def get_user_reports(
         self, 
-        user_id: int, 
+        user_id: str, 
         report_type: Optional[ReportType] = None,
         status: Optional[ReportStatus] = None,
         page: int = 1,

@@ -25,7 +25,7 @@ class OAuthTokenService:
     
     async def get_token(
         self, 
-        user_id: int, 
+        user_id: str, 
         service: str
     ) -> Optional[Dict[str, Any]]:
         """Retrieve OAuth2 tokens for a user and service.
@@ -66,7 +66,7 @@ class OAuthTokenService:
     
     async def save_token(
         self,
-        user_id: int,
+        user_id: str,
         service: str,
         token_data: Dict[str, Any],
         expires_in: Optional[int] = None
@@ -137,7 +137,7 @@ class OAuthTokenService:
             logger.error(f"Error saving OAuth token: {str(e)}")
             raise
     
-    async def delete_token(self, user_id: int, service: str) -> bool:
+    async def delete_token(self, user_id: str, service: str) -> bool:
         """Delete OAuth2 tokens for a user and service.
         
         Args:

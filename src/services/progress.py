@@ -40,13 +40,13 @@ class ProgressService:
         result = await self.db.execute(query)
         return result.scalars().all()
     
-    async def get_trackers_by_user(self, user_id: int) -> List[ProgressTracker]:
+    async def get_trackers_by_user(self, user_id: str) -> List[ProgressTracker]:
         """Get all progress trackers for a user."""
         query = select(ProgressTracker).where(ProgressTracker.user_id == user_id)
         result = await self.db.execute(query)
         return result.scalars().all()
     
-    async def create_tracker(self, report_id: int, user_id: int) -> ProgressTracker:
+    async def create_tracker(self, report_id: int, user_id: str) -> ProgressTracker:
         """Create a new progress tracker."""
         tracker = ProgressTracker(
             report_id=report_id,

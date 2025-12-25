@@ -33,7 +33,7 @@ class ReportCreate(ReportBase):
 class ReportResponse(ReportBase):
     """Schema for report response."""
     id: int
-    user_id: int
+    user_id: str
     status: ReportStatusEnum
     result: Optional[Dict[str, Any]] = None
     error_message: Optional[str] = None

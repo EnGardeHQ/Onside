@@ -41,12 +41,12 @@ class ProgressManager:
     def __init__(self):
         """Initialize the progress manager."""
         # Active WebSocket connections: {report_id: {user_id: websocket}}
-        self.connections: Dict[int, Dict[int, WebSocket]] = {}
+        self.connections: Dict[int, Dict[str, WebSocket]] = {}
         
         # Active progress trackers: {report_id: tracker}
         self.active_trackers: Dict[int, ProgressTracker] = {}
     
-    async def connect(self, websocket: WebSocket, report_id: int, user_id: int):
+    async def connect(self, websocket: WebSocket, report_id: int, user_id: str):
         """Connect a new WebSocket client.
         
         Args:
@@ -65,7 +65,7 @@ class ProgressManager:
         
         logger.info(f"WebSocket connected for report {report_id}, user {user_id}")
     
-    def disconnect(self, report_id: int, user_id: int):
+    def disconnect(self, report_id: int, user_id: str):
         """Disconnect a WebSocket client.
         
         Args:
@@ -138,7 +138,7 @@ class ProgressService:
     async def create_tracker(
         self, 
         report_id: int,
-        user_id: int
+        user_id: str
     ) -> ProgressTracker:
         """Create a new progress tracker.
         
@@ -212,7 +212,7 @@ class ProgressService:
         self,
         websocket: WebSocket,
         report_id: int,
-        user_id: int
+        user_id: str
     ):
         """Handle WebSocket connection for progress tracking.
         
