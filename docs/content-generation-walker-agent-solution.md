@@ -54,7 +54,7 @@ An autonomous AI agent that:
         ┌───────────────┼───────────────┐
         ▼               ▼               ▼
     Email          WhatsApp          Platform
-   (SendGrid)      (Twilio)           Chat
+    (Brevo)        (Twilio)           Chat
 ```
 
 ## Content Generation Features
